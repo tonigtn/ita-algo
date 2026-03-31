@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.21/dist/lenis.css">
     <style>
         /* ========================================
            DESIGN TOKENS
@@ -46,7 +47,6 @@
         }
 
         html {
-            scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -58,6 +58,113 @@
             font-size: 16px;
             line-height: 1.6;
             overflow-x: hidden;
+        }
+
+        body.is-loading { overflow: hidden; }
+
+        /* Page Loader */
+        .page-loader {
+            position: fixed;
+            inset: 0;
+            background: #050810;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        .page-loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+
+        /* Scroll Progress */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+            width: 0%;
+            z-index: 1002;
+        }
+
+        /* Section Header Line Draw */
+        .section-header {
+            position: relative;
+        }
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--border));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .section-header.line-drawn::after { transform: scaleX(1); }
+
+        .header-row-line {
+            position: relative;
+        }
+        .header-row-line::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--border));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .header-row-line.line-drawn::after { transform: scaleX(1); }
+
+        /* Hero gradient breathing */
+        @keyframes gradientPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.05); }
+        }
+        .hero-bg { animation: gradientPulse 8s ease-in-out infinite; }
+
+        /* Section label clip reveal */
+        .section-label {
+            clip-path: inset(0 100% 0 0);
+        }
+        .section-label.revealed {
+            clip-path: inset(0 0% 0 0);
+            transition: clip-path 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Word reveal wrapper */
+        .word-wrap { display: inline-block; overflow: hidden; vertical-align: top; }
+        .word { display: inline-block; }
+
+        /* Section background rhythm */
+        #manual-vs-algo, #onboarding, #faq { background: #0c1120; }
+
+        /* Button glow */
+        .form-submit { position: relative; overflow: hidden; }
+        .form-submit::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
+            opacity: 0;
+            z-index: -1;
+            filter: blur(12px);
+            transition: opacity 0.4s ease;
+        }
+        .form-submit:hover::after { opacity: 0.5; }
+
+        /* Icon scale on card hover */
+        .versus-header-icon svg,
+        .works-card-icon svg { transition: transform 0.3s ease; }
+        .versus-card:hover .versus-header-icon svg,
+        .works-card:hover .works-card-icon svg { transform: scale(1.15); }
+
+        /* Profile card glow on hover */
+        .profile-card.balanced:hover {
+            box-shadow: 0 0 60px var(--accent-secondary-glow), 0 0 30px var(--accent-secondary-glow), inset 0 0 30px rgba(99, 102, 241, 0.05);
         }
 
         h1, h2, h3, h4 {
@@ -123,7 +230,6 @@
         .section-header {
             margin-bottom: 60px;
             padding-bottom: 24px;
-            border-bottom: 2px solid var(--border);
         }
 
         /* ========================================
@@ -186,6 +292,13 @@
             background:
                 radial-gradient(ellipse 80% 60% at 50% 40%, rgba(0, 212, 255, 0.10) 0%, transparent 70%),
                 radial-gradient(ellipse 60% 50% at 30% 60%, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+        }
+
+        .hero-bg-layer2 {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 50% 40% at 70% 50%, rgba(99, 102, 241, 0.06) 0%, transparent 70%);
+            animation: gradientPulse 10s ease-in-out infinite 2s;
         }
 
         .hero-grid {
@@ -547,10 +660,7 @@
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .works-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-        }
+        /* hover handled by 3D tilt JS only */
 
         .works-card-icon {
             width: 48px;
@@ -592,7 +702,7 @@
         .works-sidebar {
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 28px;
         }
 
         .works-sidebar-label {
@@ -731,6 +841,30 @@
             position: relative;
         }
 
+        /* Connector line behind steps */
+        .steps-flow::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 80px;
+            right: 80px;
+            height: 2px;
+            background: var(--border);
+            z-index: 0;
+        }
+
+        .steps-connector {
+            position: absolute;
+            top: 40px;
+            left: 80px;
+            right: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+            z-index: 0;
+            transform-origin: left;
+            transform: scaleX(0);
+        }
+
         .step {
             flex: 1;
             text-align: center;
@@ -750,17 +884,26 @@
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            border: 1px solid var(--border-subtle);
+            border: 2px solid var(--accent);
             background: var(--bg-card);
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: box-shadow 0.4s ease, border-color 0.4s ease;
         }
 
         .step:nth-child(2) .step-circle { border-color: var(--accent-secondary); }
         .step:nth-child(3) .step-circle { border-color: var(--accent); }
         .step:nth-child(4) .step-circle { border-color: var(--accent-secondary); }
         .step:nth-child(5) .step-circle { border-color: var(--accent); }
+
+        .step.active .step-circle {
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+        .step:nth-child(2).active .step-circle,
+        .step:nth-child(4).active .step-circle {
+            box-shadow: 0 0 20px var(--accent-secondary-glow);
+        }
 
         .step-circle svg {
             width: 32px;
@@ -861,20 +1004,25 @@
             fill: #dc2626;
         }
 
-        .flow-diagram {
+        .flow-diagram-wrap {
             display: grid;
-            grid-template-columns: 1fr auto 1.2fr auto 1fr;
+            grid-template-columns: 1fr auto 1.4fr auto 1fr;
+            grid-template-rows: auto auto;
             align-items: center;
-            gap: 0;
-            margin-bottom: 24px;
+            gap: 20px 20px;
         }
 
         .flow-box {
             background: var(--bg-deep);
             border: 1px solid var(--border-subtle);
             border-radius: var(--card-radius);
-            padding: 24px 20px;
+            padding: 28px 28px;
             text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .flow-box.primary {
@@ -913,8 +1061,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
-            padding: 0 8px;
+            gap: 10px;
+            padding: 0 4px;
+            flex-shrink: 0;
         }
 
         .flow-arrow-line {
@@ -933,17 +1082,97 @@
         .flow-arrow-line.execution { color: var(--silver); }
 
         .flow-arrow-line svg {
-            width: 32px;
+            width: 36px;
             height: 12px;
         }
 
+        /* Flow animation states */
+        .flow-box {
+            transition: box-shadow 0.5s ease, border-color 0.5s ease, transform 0.3s ease;
+        }
+
+        .flow-box.flow-active {
+            border-color: var(--accent);
+            box-shadow: 0 0 25px var(--accent-glow);
+            transform: scale(1.03);
+        }
+
+        .flow-box.flow-active .flow-box-icon svg {
+            fill: var(--accent);
+            transition: fill 0.3s;
+        }
+
+        .flow-arrow-line {
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            opacity: 0.4;
+        }
+
+        .flow-arrow-line.flow-active {
+            opacity: 1;
+        }
+
+        .flow-arrow-line.flow-active.deposit svg,
+        .flow-arrow-line.flow-active.execution svg {
+            animation: arrowPulseRight 0.8s ease-in-out;
+        }
+
+        .flow-arrow-line.flow-active.withdraw svg {
+            animation: arrowPulseLeft 0.8s ease-in-out;
+        }
+
+        @keyframes arrowPulseRight {
+            0% { transform: translateX(-4px); opacity: 0.5; }
+            50% { transform: translateX(4px); opacity: 1; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes arrowPulseLeft {
+            0% { transform: translateX(4px); opacity: 0.5; }
+            50% { transform: translateX(-4px); opacity: 1; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+
         .flow-algo-link {
+            transition: opacity 0.4s ease;
+        }
+
+        .flow-algo-box {
+            transition: box-shadow 0.5s ease, border-color 0.5s ease;
+        }
+
+        .flow-algo-box.flow-active {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .flow-algo-link-line {
+            transition: border-color 0.4s ease;
+        }
+
+        .flow-algo-link-line.flow-active {
+            border-left-color: var(--accent);
+        }
+
+        /* Hover interactivity on flow boxes */
+        .flow-box:hover {
+            border-color: var(--accent) !important;
+            box-shadow: 0 0 20px var(--accent-glow);
+            transform: translateY(-3px);
+            cursor: default;
+        }
+
+        .flow-algo-box:hover {
+            box-shadow: 0 0 20px var(--accent-glow);
+            cursor: default;
+        }
+
+        .flow-algo-link {
+            grid-column: 3;
+            grid-row: 2;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 8px;
-            margin-top: 16px;
-            grid-column: 3;
         }
 
         .flow-algo-link-line {
@@ -988,7 +1217,6 @@
             align-items: flex-start;
             margin-bottom: 60px;
             padding-bottom: 24px;
-            border-bottom: 2px solid var(--border);
         }
 
         .profiles-date-info {
@@ -1052,10 +1280,7 @@
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
-        .profile-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-        }
+        /* hover handled by 3D tilt JS only — no size/position change */
 
         .profile-card.balanced {
             border: 2px solid var(--accent-secondary);
@@ -1225,7 +1450,6 @@
             align-items: flex-start;
             margin-bottom: 60px;
             padding-bottom: 24px;
-            border-bottom: 2px solid var(--border);
         }
 
         .calc-header-right {
@@ -1838,9 +2062,18 @@
                 gap: 32px;
             }
 
-            .flow-diagram {
+            .steps-flow::before,
+            .steps-connector {
+                display: none;
+            }
+
+            .flow-diagram-wrap {
                 grid-template-columns: 1fr;
                 gap: 16px;
+            }
+
+            .flow-algo-link {
+                grid-column: 1;
             }
 
             .flow-arrows {
@@ -1861,31 +2094,12 @@
             }
         }
 
-        /* ========================================
-           ANIMATION INITIAL STATES (GSAP overrides)
-           ======================================== */
-        .anim-fade-up {
-            opacity: 0;
-            transform: translateY(40px);
-        }
-
-        .anim-fade-left {
-            opacity: 0;
-            transform: translateX(-60px);
-        }
-
-        .anim-fade-right {
-            opacity: 0;
-            transform: translateX(60px);
-        }
-
-        .anim-scale {
-            opacity: 0;
-            transform: scale(0.9);
-        }
+        /* Animation initial states removed — GSAP from() handles them inline */
     </style>
 </head>
-<body>
+<body class="is-loading">
+    <div class="page-loader" id="pageLoader"></div>
+    <div class="scroll-progress" id="scrollProgress"></div>
 
     <!-- ============================
          NAVBAR
@@ -1899,6 +2113,7 @@
          ============================ -->
     <section class="hero" id="hero">
         <div class="hero-bg"></div>
+        <div class="hero-bg-layer2"></div>
         <div class="hero-grid"></div>
         <div class="hero-corner tl"></div>
         <div class="hero-corner br"></div>
@@ -2227,6 +2442,7 @@
             <div class="onboard-sub-title anim-fade-up">Setup & Activation Steps</div>
 
             <div class="steps-flow">
+                <div class="steps-connector" id="stepsConnector"></div>
                 <div class="step anim-fade-up">
                     <div class="step-circle-wrap">
                         <div class="step-circle">
@@ -2291,7 +2507,7 @@
                     </div>
                 </div>
 
-                <div class="flow-diagram">
+                <div class="flow-diagram-wrap">
                     <div class="flow-box">
                         <div class="flow-box-icon"><svg viewBox="0 0 24 24"><path d="M4 10h3v7H4zm6.5 0h3v7h-3zM2 19h20v3H2zm15-9h3v7h-3zm-5-9L2 6v2h20V6z"/></svg></div>
                         <div class="flow-box-name">Your Bank</div>
@@ -2323,12 +2539,12 @@
                         <div class="flow-box-name">Market P&L</div>
                         <div class="flow-box-sub">(XAUUSD)</div>
                     </div>
-                </div>
 
-                <div class="flow-algo-link">
-                    <div class="flow-algo-link-line"></div>
-                    <div class="flow-algo-label">Data & Signals Only</div>
-                    <div class="flow-algo-box">ITA ALGO System</div>
+                    <div class="flow-algo-link">
+                        <div class="flow-algo-link-line"></div>
+                        <div class="flow-algo-label">Data & Signals Only</div>
+                        <div class="flow-algo-box">ITA ALGO System</div>
+                    </div>
                 </div>
 
                 <div class="flow-note">Note: ITA ALGO does not hold client funds. All deposits and withdrawals are processed directly between you and your regulated broker.</div>
@@ -2341,7 +2557,7 @@
          ============================ -->
     <section id="profiles">
         <div class="container">
-            <div class="profiles-header-row anim-fade-up">
+            <div class="profiles-header-row header-row-line anim-fade-up">
                 <div>
                     <div class="section-label">Scenario Analysis</div>
                     <h2 class="section-title">Risk Profiles & Growth Scenarios</h2>
@@ -2485,7 +2701,7 @@
          ============================ -->
     <section class="calculator" id="calculator">
         <div class="container">
-            <div class="calc-header-row anim-fade-up">
+            <div class="calc-header-row header-row-line anim-fade-up">
                 <div>
                     <div class="section-label">Projection Tool</div>
                     <h2 class="section-title">Live Return & Risk Calculator</h2>
@@ -2724,18 +2940,35 @@
          ============================ -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.21/dist/lenis.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script>
-        /* ========================================
-           NAVBAR
-           ======================================== */
+        const isMobile = window.matchMedia('(max-width: 768px)').matches || 'ontouchstart' in window;
         const navbar = document.getElementById('navbar');
         const hero = document.getElementById('hero');
 
         /* ========================================
-           GSAP + SCROLLTRIGGER
+           GSAP + SCROLLTRIGGER + LENIS
            ======================================== */
         gsap.registerPlugin(ScrollTrigger);
+
+        // Lenis smooth scroll
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: !isMobile,
+            touchMultiplier: 2
+        });
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+
+        // Scroll progress bar
+        gsap.to('#scrollProgress', {
+            width: '100%',
+            ease: 'none',
+            scrollTrigger: { trigger: document.documentElement, start: 'top top', end: 'bottom bottom', scrub: 0.3 }
+        });
 
         // Navbar — show after scrolling past hero
         ScrollTrigger.create({
@@ -2745,84 +2978,349 @@
             onLeaveBack: () => navbar.classList.remove('visible')
         });
 
-        // Hero entrance
-        gsap.from('.hero-content', {
-            opacity: 0,
-            scale: 0.95,
-            filter: 'blur(20px)',
-            duration: 1.2,
-            ease: 'power3.out',
-            delay: 0.3
+        /* ========================================
+           TEXT REVEAL UTILITY
+           ======================================== */
+        function splitWords(selector) {
+            document.querySelectorAll(selector).forEach(el => {
+                const words = el.textContent.trim().split(/\s+/);
+                el.innerHTML = words.map(w =>
+                    '<span class="word-wrap"><span class="word" style="transform:translateY(110%);opacity:0;">' + w + '</span></span> '
+                ).join('');
+            });
+        }
+
+        splitWords('.section-title');
+        splitWords('.contact-heading');
+
+        /* ========================================
+           PAGE LOAD → HERO ENTRANCE
+           ======================================== */
+        gsap.set('.hero-content', { visibility: 'visible' });
+
+        window.addEventListener('load', () => {
+            document.body.classList.remove('is-loading');
+            document.getElementById('pageLoader').classList.add('done');
+
+            const heroTl = gsap.timeline({ delay: 0.4 });
+
+            heroTl.from('.hero-bg', { opacity: 0, scale: 1.2, duration: 1.5, ease: 'power2.out' });
+            heroTl.from('.hero-bg-layer2', { opacity: 0, duration: 1.2, ease: 'power2.out' }, '-=1.0');
+            heroTl.from('.hero-grid', { opacity: 0, duration: 1.2, ease: 'power2.out' }, '-=0.8');
+            heroTl.from('.hero-logo .ita', { opacity: 0, y: 40, filter: 'blur(10px)', duration: 0.8, ease: 'power3.out' }, '-=0.5');
+            heroTl.from('.hero-logo .algo', { opacity: 0, y: 40, filter: 'blur(10px)', duration: 0.8, ease: 'power3.out' }, '-=0.5');
+            heroTl.from('.hero-tagline', { opacity: 0, y: 20, letterSpacing: '14px', duration: 0.8, ease: 'power3.out' }, '-=0.3');
+            heroTl.from('.hero-corner', { opacity: 0, scale: 0.5, duration: 0.6, stagger: 0.15, ease: 'back.out(1.7)' }, '-=0.4');
+
+            // Perpetual floating corners
+            gsap.to('.hero-corner.tl', { x: 5, y: 5, opacity: 0.4, duration: 3, ease: 'sine.inOut', yoyo: true, repeat: -1 });
+            gsap.to('.hero-corner.br', { x: -5, y: -5, opacity: 0.4, duration: 3.5, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 0.5 });
         });
 
-        gsap.from('.hero-corner', {
-            opacity: 0,
-            duration: 1,
-            delay: 1,
-            stagger: 0.2,
-            ease: 'power2.out'
-        });
+        // Hero parallax
+        gsap.to('.hero-grid', { yPercent: 30, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+        gsap.to('.hero-bg', { yPercent: 15, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+        gsap.to('.hero-bg-layer2', { yPercent: 25, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
 
-        // Fade-up elements
-        gsap.utils.toArray('.anim-fade-up').forEach(el => {
-            gsap.to(el, {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: el,
-                    start: 'top 85%',
-                    toggleActions: 'play none none none'
-                }
+        /* ========================================
+           SECTION LABEL + TITLE REVEALS
+           ======================================== */
+        gsap.utils.toArray('.section-label').forEach(label => {
+            ScrollTrigger.create({
+                trigger: label, start: 'top 88%', once: true,
+                onEnter: () => label.classList.add('revealed')
             });
         });
 
-        // Fade-left elements
-        gsap.utils.toArray('.anim-fade-left').forEach(el => {
-            gsap.to(el, {
-                opacity: 1,
-                x: 0,
-                duration: 0.8,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: el,
-                    start: 'top 85%',
-                    toggleActions: 'play none none none'
-                }
+        gsap.utils.toArray('.section-title').forEach(title => {
+            const words = title.querySelectorAll('.word');
+            if (words.length) {
+                gsap.to(words, {
+                    y: 0, opacity: 1, duration: 0.6, stagger: 0.05, ease: 'power3.out',
+                    scrollTrigger: { trigger: title, start: 'top 88%', toggleActions: 'play none none none' }
+                });
+            }
+        });
+
+        gsap.utils.toArray('.contact-heading').forEach(h => {
+            const words = h.querySelectorAll('.word');
+            if (words.length) {
+                gsap.to(words, {
+                    y: 0, opacity: 1, duration: 0.6, stagger: 0.05, ease: 'power3.out',
+                    scrollTrigger: { trigger: h, start: 'top 88%', toggleActions: 'play none none none' }
+                });
+            }
+        });
+
+        /* ========================================
+           SECTION HEADER LINE DRAW
+           ======================================== */
+        gsap.utils.toArray('.section-header, .header-row-line').forEach(el => {
+            ScrollTrigger.create({
+                trigger: el, start: 'top 85%', once: true,
+                onEnter: () => el.classList.add('line-drawn')
             });
         });
 
-        // Fade-right elements
-        gsap.utils.toArray('.anim-fade-right').forEach(el => {
-            gsap.to(el, {
-                opacity: 1,
-                x: 0,
-                duration: 0.8,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: el,
-                    start: 'top 85%',
-                    toggleActions: 'play none none none'
-                }
+        /* ========================================
+           STAGGERED ENTRANCE ANIMATIONS
+           ======================================== */
+        // Stats
+        gsap.from('.stats-grid .stat-item', {
+            opacity: 0, y: 40, duration: 0.7, stagger: 0.15, ease: 'power3.out',
+            scrollTrigger: { trigger: '.stats-grid', start: 'top 85%', toggleActions: 'play none none none' }
+        });
+
+        gsap.from('.stats-footnote', {
+            opacity: 0, y: 20, duration: 0.6, ease: 'power3.out',
+            scrollTrigger: { trigger: '.stats-footnote', start: 'top 90%', toggleActions: 'play none none none' }
+        });
+
+        // Comparison cards (Investing vs Trading)
+        gsap.from('#investing-vs-trading .comparison-card', {
+            opacity: 0, y: 50, duration: 0.8, stagger: 0.2, ease: 'power3.out',
+            scrollTrigger: { trigger: '#investing-vs-trading .comparison-grid', start: 'top 80%', toggleActions: 'play none none none' }
+        });
+
+        // Versus cards + badge
+        gsap.from('.versus-grid > *', {
+            opacity: 0, y: 50, duration: 0.8, stagger: 0.15, ease: 'power3.out',
+            scrollTrigger: { trigger: '.versus-grid', start: 'top 80%', toggleActions: 'play none none none' }
+        });
+
+        // Versus list items stagger
+        document.querySelectorAll('.versus-card').forEach(card => {
+            const items = card.querySelectorAll('.versus-item');
+            gsap.from(items, {
+                opacity: 0, x: card.classList.contains('algo') ? 30 : -30, duration: 0.6, stagger: 0.1, ease: 'power3.out',
+                scrollTrigger: { trigger: card, start: 'top 75%', toggleActions: 'play none none none' }
             });
         });
 
-        // Scale-up elements
-        gsap.utils.toArray('.anim-scale').forEach((el, i) => {
-            gsap.to(el, {
-                opacity: 1,
-                scale: 1,
-                duration: 0.8,
-                delay: i * 0.15,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: el,
-                    start: 'top 85%',
-                    toggleActions: 'play none none none'
+        // Works cards
+        gsap.from('.works-pillars .works-card', {
+            opacity: 0, y: 40, duration: 0.7, stagger: 0.2, ease: 'power3.out',
+            clearProps: 'transform',
+            scrollTrigger: { trigger: '.works-pillars', start: 'top 80%', toggleActions: 'play none none none' }
+        });
+
+        // Works sidebar
+        gsap.from('.works-sidebar > *', {
+            opacity: 0, y: 20, duration: 0.6, stagger: 0.15, ease: 'power3.out',
+            clearProps: 'transform',
+            scrollTrigger: { trigger: '.works-sidebar', start: 'top 80%', toggleActions: 'play none none none' }
+        });
+
+        gsap.from('.works-stats > *', {
+            opacity: 0, y: 20, duration: 0.5, stagger: 0.15, ease: 'power3.out',
+            scrollTrigger: { trigger: '.works-stats', start: 'top 90%', toggleActions: 'play none none none' }
+        });
+
+        // Onboarding — sequential process animation
+        gsap.from('.onboard-sub-title', {
+            opacity: 0, y: 20, duration: 0.6, ease: 'power3.out',
+            scrollTrigger: { trigger: '.onboard-sub-title', start: 'top 85%', toggleActions: 'play none none none' }
+        });
+
+        // Steps: stagger in, then connector draws, then each step "lights up" sequentially
+        ScrollTrigger.create({
+            trigger: '.steps-flow',
+            start: 'top 80%',
+            once: true,
+            onEnter: () => {
+                const stepTl = gsap.timeline();
+                const steps = document.querySelectorAll('.steps-flow .step');
+
+                // 1. Steps stagger in
+                stepTl.from(steps, {
+                    opacity: 0, y: 30, scale: 0.9,
+                    duration: 0.5, stagger: 0.12, ease: 'back.out(1.4)'
+                });
+
+                // 2. Connector line draws across
+                stepTl.to('#stepsConnector', {
+                    scaleX: 1, duration: 1.2, ease: 'power2.inOut'
+                }, '-=0.2');
+
+                // 3. Each step "activates" in sequence with a glow pulse
+                steps.forEach((step, i) => {
+                    stepTl.add(() => step.classList.add('active'), '-=' + (1.2 - i * 0.24));
+                    stepTl.from(step.querySelector('.step-circle'), {
+                        boxShadow: '0 0 0px transparent',
+                        duration: 0.4, ease: 'power2.out'
+                    }, '<');
+                });
+            }
+        });
+
+        // Capital flow — entrance + cycling flow animation
+        ScrollTrigger.create({
+            trigger: '.capital-flow',
+            start: 'top 80%',
+            once: true,
+            onEnter: () => {
+                const flowTl = gsap.timeline();
+
+                // Entrance
+                flowTl.from('.capital-flow', { opacity: 0, y: 30, duration: 0.6, ease: 'power3.out' });
+                flowTl.from('.capital-flow-header > *', { opacity: 0, y: 15, duration: 0.4, stagger: 0.15, ease: 'power3.out' }, '-=0.2');
+
+                const flowChildren = document.querySelectorAll('.flow-diagram-wrap > .flow-box, .flow-diagram-wrap > .flow-arrows');
+                flowTl.from(flowChildren, { opacity: 0, x: -20, duration: 0.4, stagger: 0.12, ease: 'power3.out' }, '-=0.1');
+                flowTl.from('.flow-algo-link > *', { opacity: 0, y: -15, duration: 0.4, stagger: 0.1, ease: 'power3.out' }, '-=0.1');
+                flowTl.from('.flow-note', { opacity: 0, duration: 0.5 }, '-=0.1');
+
+                // After entrance, start the capital flow cycle
+                flowTl.call(() => startFlowCycle());
+            }
+        });
+
+        // Capital flow cycle — traces actual money/signal path
+        function startFlowCycle() {
+            const allBoxes = document.querySelectorAll('.flow-diagram-wrap .flow-box');
+            const bankBox = allBoxes[0];
+            const brokerBox = allBoxes[1];
+            const marketBox = allBoxes[2];
+            const depositArrow = document.querySelector('.flow-arrow-line.deposit');
+            const withdrawArrow = document.querySelector('.flow-arrow-line.withdraw');
+            const execArrow = document.querySelector('.flow-arrow-line.execution');
+            const algoBox = document.querySelector('.flow-algo-box');
+            const algoLine = document.querySelector('.flow-algo-link-line');
+
+            function clearActive() {
+                document.querySelectorAll('.flow-active').forEach(el => el.classList.remove('flow-active'));
+            }
+
+            // The flow cycle tells the story:
+            // 1. Deposit: Bank → Broker
+            // 2. ITA ALGO sends signals → Broker
+            // 3. Execution: Broker → Market
+            // 4. P&L returns: Market → Broker
+            // 5. Withdraw: Broker → Bank
+            const cycleTl = gsap.timeline({ repeat: -1, repeatDelay: 1.5, delay: 0.5 });
+
+            // Step 1: Your Bank lights up, then deposit arrow pulses right
+            cycleTl.call(clearActive);
+            cycleTl.call(() => bankBox.classList.add('flow-active'));
+            cycleTl.to({}, { duration: 0.6 });
+            cycleTl.call(() => depositArrow.classList.add('flow-active'));
+            cycleTl.to({}, { duration: 0.7 });
+
+            // Step 2: Broker Account receives deposit
+            cycleTl.call(clearActive);
+            cycleTl.call(() => { brokerBox.classList.add('flow-active'); });
+            cycleTl.to({}, { duration: 0.6 });
+
+            // Step 3: ITA ALGO sends signals up to Broker
+            cycleTl.call(() => { algoBox.classList.add('flow-active'); algoLine.classList.add('flow-active'); });
+            cycleTl.to({}, { duration: 0.8 });
+
+            // Step 4: Broker executes → Market
+            cycleTl.call(() => { algoBox.classList.remove('flow-active'); algoLine.classList.remove('flow-active'); });
+            cycleTl.call(() => execArrow.classList.add('flow-active'));
+            cycleTl.to({}, { duration: 0.7 });
+
+            // Step 5: Market P&L lights up
+            cycleTl.call(clearActive);
+            cycleTl.call(() => { marketBox.classList.add('flow-active'); });
+            cycleTl.to({}, { duration: 0.8 });
+
+            // Step 6: P&L returns to Broker (execution arrow reverses conceptually — market stays lit, broker joins)
+            cycleTl.call(() => { brokerBox.classList.add('flow-active'); });
+            cycleTl.to({}, { duration: 0.6 });
+
+            // Step 7: Withdraw — Broker → Bank
+            cycleTl.call(() => { marketBox.classList.remove('flow-active'); });
+            cycleTl.call(() => withdrawArrow.classList.add('flow-active'));
+            cycleTl.to({}, { duration: 0.7 });
+
+            // Step 8: Bank receives withdrawal
+            cycleTl.call(clearActive);
+            cycleTl.call(() => bankBox.classList.add('flow-active'));
+            cycleTl.to({}, { duration: 0.8 });
+
+            // Clear for repeat
+            cycleTl.call(clearActive);
+        }
+
+        // Profile cards — no entrance animation, tilt only (added below)
+
+        gsap.from('.profiles-disclaimer', {
+            opacity: 0, y: 20, duration: 0.6, ease: 'power3.out',
+            scrollTrigger: { trigger: '.profiles-disclaimer', start: 'top 90%', toggleActions: 'play none none none' }
+        });
+
+        // Calculator
+        gsap.from('.calc-params', {
+            opacity: 0, x: -40, duration: 0.8, ease: 'power3.out',
+            scrollTrigger: { trigger: '.calc-layout', start: 'top 80%', toggleActions: 'play none none none' }
+        });
+
+        gsap.from('.calc-outputs > *', {
+            opacity: 0, y: 30, duration: 0.6, stagger: 0.12, ease: 'power3.out',
+            scrollTrigger: { trigger: '.calc-outputs', start: 'top 80%', toggleActions: 'play none none none' }
+        });
+
+        // FAQ
+        gsap.from('.faq-list .faq-item', {
+            opacity: 0, y: 20, duration: 0.5, stagger: 0.1, ease: 'power3.out',
+            scrollTrigger: { trigger: '.faq-list', start: 'top 80%', toggleActions: 'play none none none' }
+        });
+
+        gsap.from('.faq-disclaimer', {
+            opacity: 0, y: 20, duration: 0.6, ease: 'power3.out',
+            scrollTrigger: { trigger: '.faq-disclaimer', start: 'top 90%', toggleActions: 'play none none none' }
+        });
+
+        // Contact
+        gsap.from('#contact .contact-grid > *', {
+            opacity: 0, y: 40, duration: 0.8, stagger: 0.2, ease: 'power3.out',
+            scrollTrigger: { trigger: '#contact .contact-grid', start: 'top 80%', toggleActions: 'play none none none' }
+        });
+
+        /* ========================================
+           SUBTLE PARALLAX
+           ======================================== */
+        /* Parallax removed from flow elements to prevent overlap */
+
+        /* ========================================
+           3D CARD TILT (desktop only)
+           ======================================== */
+        if (!isMobile) {
+            function addTilt(selector) {
+                document.querySelectorAll(selector).forEach(card => {
+                    card.addEventListener('mousemove', (e) => {
+                        const r = card.getBoundingClientRect();
+                        const x = (e.clientX - r.left) / r.width - 0.5;
+                        const y = (e.clientY - r.top) / r.height - 0.5;
+                        card.style.transform = 'perspective(800px) rotateY(' + (x * 4) + 'deg) rotateX(' + (-y * 4) + 'deg)';
+                    });
+                    card.addEventListener('mouseleave', () => {
+                        card.style.transform = '';
+                    });
+                });
+            }
+            addTilt('.works-card');
+            addTilt('.comparison-card');
+            addTilt('.profile-card');
+        }
+
+        /* ========================================
+           ANIMATED VALUE UTILITY
+           ======================================== */
+        function animateValue(el, newVal, prefix, suffix) {
+            prefix = prefix || '$';
+            suffix = suffix || '';
+            const cur = parseFloat(el.textContent.replace(/[$,%\s]/g, '').replace(/,/g, '')) || 0;
+            gsap.to({ val: cur }, {
+                val: newVal, duration: 0.6, ease: 'power2.out',
+                onUpdate: function() {
+                    const v = this.targets()[0].val;
+                    if (prefix === '$') el.textContent = prefix + Math.round(v).toLocaleString('en-US') + suffix;
+                    else el.textContent = v.toFixed(2) + suffix;
                 }
             });
-        });
+        }
 
         // Stats count-up
         document.querySelectorAll('[data-count]').forEach(el => {
@@ -3046,9 +3544,9 @@
                     bal = bal * (1 + weeklyReturn / 100);
                     compoundData.push(bal);
                 }
-                calcEndBalance.textContent = fmt(bal);
-                calcTotalWithdrawn.textContent = '$0';
-                calcTotalValue.textContent = fmt(bal);
+                animateValue(calcEndBalance, bal);
+                animateValue(calcTotalWithdrawn, 0);
+                animateValue(calcTotalValue, bal);
             } else {
                 let bal = capital;
                 let totalWithdrawnAmt = 0;
@@ -3059,9 +3557,9 @@
                     bal = bal + profit - withdrawn;
                     withdrawData.push(bal);
                 }
-                calcEndBalance.textContent = fmt(bal);
-                calcTotalWithdrawn.textContent = fmt(totalWithdrawnAmt);
-                calcTotalValue.textContent = fmt(bal + totalWithdrawnAmt);
+                animateValue(calcEndBalance, bal);
+                animateValue(calcTotalWithdrawn, totalWithdrawnAmt);
+                animateValue(calcTotalValue, bal + totalWithdrawnAmt);
             }
 
             // Update chart
