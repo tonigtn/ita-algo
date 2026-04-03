@@ -139,7 +139,7 @@
         .word { display: inline-block; }
 
         /* Section background rhythm */
-        #manual-vs-algo, #onboarding, #faq { background: #0c1120; }
+        #manual-vs-algo, #onboarding, #faq, #profit-split { background: #0c1120; }
 
         /* Button glow */
         .form-submit { position: relative; overflow: hidden; }
@@ -1352,41 +1352,6 @@
 
         .profile-metric-value.green { color: var(--positive); }
 
-        .chart-container {
-            position: relative;
-            height: 180px;
-            margin-bottom: 8px;
-        }
-
-        .chart-legend {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
-            font-size: 12px;
-            color: var(--silver);
-        }
-
-        .chart-legend-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .chart-legend-line {
-            width: 20px;
-            height: 2px;
-            border-radius: 1px;
-        }
-
-        .chart-legend-line.solid { background: currentColor; }
-        .chart-legend-line.dashed {
-            background: repeating-linear-gradient(
-                to right,
-                currentColor, currentColor 3px,
-                transparent 3px, transparent 6px
-            );
-        }
 
         .profile-stats-table {
             border-top: 1px solid var(--border);
@@ -1747,7 +1712,7 @@
         }
 
         .faq-item.open .faq-answer {
-            max-height: 200px;
+            max-height: 300px;
         }
 
         .faq-answer-inner {
@@ -2094,6 +2059,268 @@
             }
         }
 
+        /* ========================================
+           STAT EXPLAINERS
+           ======================================== */
+        .stat-explainer {
+            font-size: 11px;
+            color: var(--silver);
+            opacity: 0.6;
+            margin-top: 4px;
+            line-height: 1.4;
+            max-width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ========================================
+           PROFILE STAT EXPLAINERS
+           ======================================== */
+        .profile-stat-explainer {
+            font-size: 11px;
+            color: var(--silver);
+            opacity: 0.5;
+            line-height: 1.3;
+            margin-top: 2px;
+        }
+
+        /* ========================================
+           COMPARISON CHART (Power of Compounding)
+           ======================================== */
+        .comparison-chart-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--card-radius);
+            padding: var(--card-pad);
+            margin-top: 48px;
+        }
+
+        .comparison-chart-title {
+            font-family: var(--font-display);
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .comparison-chart-subtitle {
+            font-size: 15px;
+            color: var(--silver);
+            line-height: 1.7;
+            max-width: 700px;
+            margin-bottom: 32px;
+        }
+
+        .chart-profile-toggle {
+            display: flex;
+            gap: 0;
+            background: var(--bg-deep);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            max-width: 400px;
+            margin-bottom: 24px;
+        }
+
+        .chart-toggle-btn {
+            flex: 1;
+            padding: 10px 16px;
+            background: transparent;
+            border: none;
+            color: var(--silver);
+            font-size: 13px;
+            font-weight: 600;
+            font-family: var(--font-body);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .chart-toggle-btn.active {
+            background: var(--accent);
+            color: var(--bg-deep);
+        }
+
+        .comparison-chart-container {
+            position: relative;
+            height: 350px;
+            margin-bottom: 8px;
+        }
+
+        .comparison-chart-legend {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            margin-bottom: 16px;
+            font-size: 13px;
+            color: var(--silver);
+        }
+
+        .comparison-chart-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .comparison-chart-legend-line {
+            width: 24px;
+            height: 3px;
+            border-radius: 2px;
+        }
+
+        .comparison-chart-legend-line.solid { background: var(--accent); }
+        .comparison-chart-legend-line.dashed {
+            background: repeating-linear-gradient(
+                to right,
+                var(--accent-secondary), var(--accent-secondary) 4px,
+                transparent 4px, transparent 8px
+            );
+        }
+
+        .chart-diff-callout {
+            text-align: center;
+            background: var(--accent-glow);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 10px;
+            padding: 16px 24px;
+            margin-top: 20px;
+            font-size: 16px;
+            color: var(--platinum);
+            line-height: 1.5;
+        }
+
+        .chart-diff-callout strong {
+            color: var(--accent);
+        }
+
+        /* ========================================
+           PROFIT SPLIT
+           ======================================== */
+        .split-intro {
+            font-size: 17px;
+            color: var(--silver);
+            line-height: 1.7;
+            max-width: 720px;
+            margin-bottom: 48px;
+        }
+
+        .split-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .split-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--card-radius);
+            padding: var(--card-pad);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .split-card.split-highlight {
+            border: 2px solid var(--accent-secondary);
+            box-shadow: 0 0 40px var(--accent-secondary-glow), inset 0 0 30px rgba(99, 102, 241, 0.03);
+        }
+
+        .split-tier-label {
+            font-family: var(--font-display);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .split-deposit-range {
+            font-size: 14px;
+            color: var(--silver);
+            margin-bottom: 20px;
+        }
+
+        .split-pct {
+            font-family: var(--font-display);
+            font-size: 56px;
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .split-pct span {
+            font-size: 28px;
+            color: var(--accent);
+        }
+
+        .split-pct-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--silver);
+            margin-bottom: 20px;
+        }
+
+        .split-example {
+            font-size: 13px;
+            color: var(--silver);
+            line-height: 1.6;
+            border-top: 1px solid var(--border);
+            padding-top: 16px;
+        }
+
+        .split-notes {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .split-note {
+            font-size: 14px;
+            color: var(--silver);
+            line-height: 1.6;
+            padding: 16px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+        }
+
+        /* Responsive — Profit Split + Comparison Chart */
+        @media (max-width: 1024px) {
+            .split-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .comparison-chart-container {
+                height: 280px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .split-grid {
+                grid-template-columns: 1fr;
+                max-width: 360px;
+                margin: 0 auto 40px;
+            }
+
+            .split-pct {
+                font-size: 48px;
+            }
+
+            .comparison-chart-container {
+                height: 240px;
+            }
+
+            .chart-profile-toggle {
+                max-width: 100%;
+            }
+
+            .comparison-chart-title {
+                font-size: 20px;
+            }
+        }
+
         /* Animation initial states removed — GSAP from() handles them inline */
     </style>
 </head>
@@ -2134,25 +2361,30 @@
                 <div class="stat-item anim-fade-up">
                     <div class="stat-value accent" data-count="49.13" data-suffix="%" data-decimals="2">0%</div>
                     <div class="stat-label">3-Month Return</div>
+                    <div class="stat-explainer">$10,000 would have grown to ~$14,913</div>
                 </div>
                 <div class="stat-item anim-fade-up">
                     <div class="stat-value" data-count="85" data-suffix="" data-decimals="0">0</div>
                     <div class="stat-label">Total Trades</div>
+                    <div class="stat-explainer">Opportunities the algorithm found in 90 days</div>
                 </div>
                 <div class="stat-item anim-fade-up">
                     <div class="stat-value" data-count="20.57" data-suffix="" data-decimals="2">0</div>
-                    <div class="stat-label">Sharpe Ratio</div>
+                    <div class="stat-label">Reward-to-Risk Score</div>
+                    <div class="stat-explainer">Like miles per gallon &mdash; return per unit of risk. Above 2 is excellent.</div>
                 </div>
                 <div class="stat-item anim-fade-up">
                     <div class="stat-value warning" data-count="8.46" data-suffix="%" data-decimals="2">0%</div>
-                    <div class="stat-label">Max Drawdown</div>
+                    <div class="stat-label">Biggest Dip</div>
+                    <div class="stat-explainer">Worst temporary drop &mdash; the deepest pothole on the road.</div>
                 </div>
                 <div class="stat-item anim-fade-up">
                     <div class="stat-value" data-count="1.937" data-suffix="" data-decimals="3">0</div>
-                    <div class="stat-label">Profit Factor</div>
+                    <div class="stat-label">Win/Loss Ratio</div>
+                    <div class="stat-explainer">For every $1 lost, $1.94 was gained. Above 1.5 is strong.</div>
                 </div>
             </div>
-            <div class="stats-footnote anim-fade-up">90-Day Backtest Results &mdash; January 1 to March 27, 2026 &mdash; $10,000 Starting Capital</div>
+            <div class="stats-footnote anim-fade-up">Based on a 90-day simulation (Jan 1 &mdash; Mar 27, 2026) starting with $10,000. A &ldquo;simulation&rdquo; means we ran the algorithm on real past price data &mdash; like a dress rehearsal before the real show.</div>
         </div>
     </section>
 
@@ -2168,50 +2400,50 @@
             <div class="comparison-grid">
                 <div class="comparison-card anim-fade-left">
                     <h3 class="comparison-card-title">Investing</h3>
-                    <div class="comparison-card-sub">S&P 500, Physical Gold</div>
+                    <div class="comparison-card-sub">Index Funds, Physical Gold, Real Estate</div>
                     <div class="comparison-item">
                         <div class="comparison-item-label">Time Horizon</div>
-                        <div class="comparison-item-value">Years to decades</div>
+                        <div class="comparison-item-value">Years to decades &mdash; like planting a tree and waiting for it to grow</div>
                     </div>
                     <div class="comparison-item">
                         <div class="comparison-item-label">Objective</div>
-                        <div class="comparison-item-value">Long-term capital growth and preservation</div>
+                        <div class="comparison-item-value">Grow your money slowly over time and protect it from losing value</div>
                     </div>
                     <div class="comparison-item">
                         <div class="comparison-item-label">Frequency</div>
-                        <div class="comparison-item-value">Low (buy & hold / DCA)</div>
+                        <div class="comparison-item-value">Rarely buy or sell. Many investors use &ldquo;DCA&rdquo; &mdash; investing a fixed amount on a regular schedule, like $500/month</div>
                     </div>
                     <div class="comparison-item">
                         <div class="comparison-item-label">Analysis</div>
-                        <div class="comparison-item-value">Fundamental analysis, macro trends</div>
+                        <div class="comparison-item-value">Big-picture research: Is the economy growing? Is this company profitable?</div>
                     </div>
                     <div class="comparison-item">
                         <div class="comparison-item-label">Risk Profile</div>
-                        <div class="comparison-item-value">Lower day-to-day volatility, diversification</div>
+                        <div class="comparison-item-value">Smaller day-to-day price swings. You spread money across many assets so one bad apple doesn&rsquo;t spoil the bunch.</div>
                     </div>
                 </div>
                 <div class="comparison-card highlighted anim-fade-right">
                     <h3 class="comparison-card-title">Trading</h3>
-                    <div class="comparison-card-sub">XAUUSD (ITA ALGO Focus)</div>
+                    <div class="comparison-card-sub">Gold Price in US Dollars (ITA ALGO&rsquo;s Focus)</div>
                     <div class="comparison-item">
                         <div class="comparison-item-label">Time Horizon</div>
-                        <div class="comparison-item-value">Minutes to weeks</div>
+                        <div class="comparison-item-value">Minutes to weeks &mdash; like surfing waves instead of waiting for the tide</div>
                     </div>
                     <div class="comparison-item">
                         <div class="comparison-item-label">Objective</div>
-                        <div class="comparison-item-value">Monetize short-term price movements</div>
+                        <div class="comparison-item-value">Profit from short-term price ups and downs</div>
                     </div>
                     <div class="comparison-item">
                         <div class="comparison-item-label">Frequency</div>
-                        <div class="comparison-item-value">High (frequent entries/exits)</div>
+                        <div class="comparison-item-value">High &mdash; buying and selling frequently throughout the day or week</div>
                     </div>
                     <div class="comparison-item">
                         <div class="comparison-item-label">Analysis</div>
-                        <div class="comparison-item-value">Technical signals, rules, risk controls</div>
+                        <div class="comparison-item-value">Charts, patterns, and strict rules &mdash; not guessing, but following a system</div>
                     </div>
                     <div class="comparison-item">
                         <div class="comparison-item-label">Risk Profile</div>
-                        <div class="comparison-item-value">High intraday volatility, strict risk management</div>
+                        <div class="comparison-item-value">Bigger price swings within a single day, managed by strict safety rules</div>
                     </div>
                 </div>
             </div>
@@ -2243,35 +2475,35 @@
                             <div class="versus-item-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-2-5.83l-2.59-2.59L6 13l4 4 8-8-1.41-1.42z"/></svg></div>
                             <div>
                                 <div class="versus-item-title">Emotional Influence</div>
-                                <div class="versus-item-desc">Fear and greed often override strategy.</div>
+                                <div class="versus-item-desc">Fear and greed take the wheel. Like driving but letting your emotions steer &mdash; you&rsquo;d swerve at every honk.</div>
                             </div>
                         </li>
                         <li class="versus-item">
                             <div class="versus-item-icon"><svg viewBox="0 0 24 24"><path d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM5 15h14v2H5z"/></svg></div>
                             <div>
                                 <div class="versus-item-title">Inconsistent Discipline</div>
-                                <div class="versus-item-desc">Fatigue leads to missed signals or errors.</div>
+                                <div class="versus-item-desc">Like studying all night before an exam &mdash; tiredness causes silly mistakes and missed opportunities.</div>
                             </div>
                         </li>
                         <li class="versus-item">
                             <div class="versus-item-icon"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></div>
                             <div>
                                 <div class="versus-item-title">Slower Execution</div>
-                                <div class="versus-item-desc">Human reaction time lags behind market volatility.</div>
+                                <div class="versus-item-desc">By the time you click &ldquo;Buy,&rdquo; the price may have already moved &mdash; like trying to catch a tennis ball after it&rsquo;s bounced.</div>
                             </div>
                         </li>
                         <li class="versus-item">
                             <div class="versus-item-icon"><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg></div>
                             <div>
                                 <div class="versus-item-title">Limited Monitoring</div>
-                                <div class="versus-item-desc">Cannot watch charts 24/5; opportunities are missed.</div>
+                                <div class="versus-item-desc">You need to sleep; the market doesn&rsquo;t. Gold trades nearly around the clock, 5 days a week &mdash; you&rsquo;d miss opportunities overnight.</div>
                             </div>
                         </li>
                         <li class="versus-item">
                             <div class="versus-item-icon"><svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg></div>
                             <div>
                                 <div class="versus-item-title">Limited Scalability</div>
-                                <div class="versus-item-desc">Difficult to manage multiple strategies/accounts.</div>
+                                <div class="versus-item-desc">Like a chef trying to cook 10 dishes at once &mdash; things get dropped when you juggle too many strategies.</div>
                             </div>
                         </li>
                     </ul>
@@ -2296,35 +2528,35 @@
                             <div class="versus-item-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
                             <div>
                                 <div class="versus-item-title">Zero Emotion</div>
-                                <div class="versus-item-desc">Pure logic execution regardless of market stress.</div>
+                                <div class="versus-item-desc">Like a pilot trusting instruments in a storm &mdash; the algorithm follows its rules even when the market is panicking.</div>
                             </div>
                         </li>
                         <li class="versus-item">
                             <div class="versus-item-icon"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></div>
                             <div>
                                 <div class="versus-item-title">Systematic Discipline</div>
-                                <div class="versus-item-desc">100% adherence to predefined entry/exit rules.</div>
+                                <div class="versus-item-desc">Like a vending machine &mdash; same input, same output. It never bends the rules, never &ldquo;just this once.&rdquo;</div>
                             </div>
                         </li>
                         <li class="versus-item">
                             <div class="versus-item-icon"><svg viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg></div>
                             <div>
                                 <div class="versus-item-title">Millisecond Execution</div>
-                                <div class="versus-item-desc">Instant order placement and modification.</div>
+                                <div class="versus-item-desc">While a human blinks, the algorithm has already placed the trade. Reacts in milliseconds, not seconds.</div>
                             </div>
                         </li>
                         <li class="versus-item">
                             <div class="versus-item-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></div>
                             <div>
                                 <div class="versus-item-title">24/5 Monitoring</div>
-                                <div class="versus-item-desc">Continuous operation across all global sessions.</div>
+                                <div class="versus-item-desc">Watches the market 24 hours a day, 5 days a week. It never sleeps, never takes a break.</div>
                             </div>
                         </li>
                         <li class="versus-item">
                             <div class="versus-item-icon"><svg viewBox="0 0 24 24"><path d="M11.99 2l-7 4v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V6l-7-4zm0 10.99h5c-.44 4.12-2.94 7.72-5 8.72V13h-5V7.34l5-2.86v8.51z"/></svg></div>
                             <div>
                                 <div class="versus-item-title">High Scalability</div>
-                                <div class="versus-item-desc">Effortlessly manage multiple accounts/risk profiles.</div>
+                                <div class="versus-item-desc">Like a GPS routing a thousand cars at once &mdash; effortlessly manages multiple accounts simultaneously.</div>
                             </div>
                         </li>
                     </ul>
@@ -2349,8 +2581,8 @@
                             <svg viewBox="0 0 24 24"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg>
                         </div>
                         <div>
-                            <h3 class="works-card-title">XAUUSD Market Focus</h3>
-                            <p class="works-card-text">Specialized exclusively in Gold/USD pairs to exploit specific volatility patterns and liquidity characteristics.</p>
+                            <h3 class="works-card-title">Gold Market Specialist</h3>
+                            <p class="works-card-text">We trade XAUUSD &mdash; that&rsquo;s the price of gold measured in US dollars. Gold is one of the most actively traded markets in the world, giving our algorithm plenty of short-term opportunities to work with.</p>
                         </div>
                     </div>
                     <div class="works-card anim-fade-up">
@@ -2358,8 +2590,8 @@
                             <svg viewBox="0 0 24 24"><path d="M14 4l2.29 2.29-2.88 2.88 1.42 1.42 2.88-2.88L20 10V4zm-4 0H4v6l2.29-2.29 4.71 4.7V20h2v-8.41l-5.29-5.3z"/></svg>
                         </div>
                         <div>
-                            <h3 class="works-card-title">Rule-Based Logic</h3>
-                            <p class="works-card-text">Entries and exits are determined by strict signal filters. Stop Loss (SL) and Take Profit (TP) are predefined for every trade.</p>
+                            <h3 class="works-card-title">Strict Rules, No Guessing</h3>
+                            <p class="works-card-text">Every trade follows a clear set of rules. The algorithm always sets a &ldquo;Stop Loss&rdquo; (an automatic safety net that limits how much you can lose on any single trade) and a &ldquo;Take Profit&rdquo; (an automatic sell point that locks in your gains).</p>
                         </div>
                     </div>
                     <div class="works-card anim-fade-up">
@@ -2367,8 +2599,8 @@
                             <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
                         </div>
                         <div>
-                            <h3 class="works-card-title">Risk & Capital Protection</h3>
-                            <p class="works-card-text">Dynamic position sizing based on risk-per-trade. Includes account-level equity protection to cap maximum drawdown.</p>
+                            <h3 class="works-card-title">Built-In Safety Nets</h3>
+                            <p class="works-card-text">The algorithm decides how much to risk on each trade based on your account size &mdash; like a poker player who never bets more than they can afford to lose. There&rsquo;s also an account-wide safety switch that pauses everything if your balance drops too far.</p>
                         </div>
                     </div>
                     <div class="works-card anim-fade-up">
@@ -2377,7 +2609,7 @@
                         </div>
                         <div>
                             <h3 class="works-card-title">Automated Discipline</h3>
-                            <p class="works-card-text">Zero emotional interference. The system executes orders instantly and monitors positions 24/5 without fatigue.</p>
+                            <p class="works-card-text">No second-guessing, no panic selling, no &ldquo;I&rsquo;ll skip this one.&rdquo; The system runs around the clock, 5 days a week, executing trades instantly without fatigue.</p>
                         </div>
                     </div>
                 </div>
@@ -2410,8 +2642,8 @@
 
                     <div class="works-outcome anim-fade-up">
                         <div class="works-outcome-label"><span></span> Target Outcome</div>
-                        <h3>Consistent, risk-controlled participation in Gold's short-term moves.</h3>
-                        <p>We aim to separate alpha generation from human error, providing a purely quantitative approach to market speculation.</p>
+                        <h3>Steady, risk-managed profits from gold&rsquo;s short-term price movements.</h3>
+                        <p>Our goal is to remove human error from the equation &mdash; letting a tested system do what emotions and fatigue prevent us from doing consistently.</p>
                     </div>
                 </div>
             </div>
@@ -2451,7 +2683,7 @@
                         <div class="step-badge">1</div>
                     </div>
                     <div class="step-title">Choose Broker</div>
-                    <div class="step-desc">Select a compatible broker account.</div>
+                    <div class="step-desc">Pick a broker &mdash; the platform where your money lives. We&rsquo;ll recommend trusted options.</div>
                 </div>
                 <div class="step anim-fade-up">
                     <div class="step-circle-wrap">
@@ -2461,7 +2693,7 @@
                         <div class="step-badge">2</div>
                     </div>
                     <div class="step-title">Open & Fund</div>
-                    <div class="step-desc">Create account in your name & deposit.</div>
+                    <div class="step-desc">Open an account in your own name and deposit your starting capital. You stay in full control.</div>
                 </div>
                 <div class="step anim-fade-up">
                     <div class="step-circle-wrap">
@@ -2471,7 +2703,7 @@
                         <div class="step-badge">3</div>
                     </div>
                     <div class="step-title">Authorize Algo</div>
-                    <div class="step-desc">Connect via API or trade-copier.</div>
+                    <div class="step-desc">Link your account to our system. This gives us permission to place trades &mdash; but never to withdraw your money.</div>
                 </div>
                 <div class="step anim-fade-up">
                     <div class="step-circle-wrap">
@@ -2481,7 +2713,7 @@
                         <div class="step-badge">4</div>
                     </div>
                     <div class="step-title">Select Risk</div>
-                    <div class="step-desc">Conservative, Balanced, or Aggressive.</div>
+                    <div class="step-desc">Pick your comfort level &mdash; like choosing between a sedan, an SUV, or a sports car.</div>
                 </div>
                 <div class="step anim-fade-up">
                     <div class="step-circle-wrap">
@@ -2491,7 +2723,7 @@
                         <div class="step-badge">5</div>
                     </div>
                     <div class="step-title">Auto Trading</div>
-                    <div class="step-desc">System trades 24/5 automatically.</div>
+                    <div class="step-desc">Sit back. The algorithm trades gold 24 hours a day, 5 days a week, on autopilot.</div>
                 </div>
             </div>
 
@@ -2536,8 +2768,8 @@
 
                     <div class="flow-box">
                         <div class="flow-box-icon"><svg viewBox="0 0 24 24"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg></div>
-                        <div class="flow-box-name">Market P&L</div>
-                        <div class="flow-box-sub">(XAUUSD)</div>
+                        <div class="flow-box-name">Market Profits & Losses</div>
+                        <div class="flow-box-sub">(Gold Trades)</div>
                     </div>
 
                     <div class="flow-algo-link">
@@ -2580,7 +2812,7 @@
                         <h3 class="profile-name">Conservative</h3>
                         <span class="profile-risk-badge low">Low Risk</span>
                     </div>
-                    <div class="profile-subtitle">Capital Preservation Focus</div>
+                    <div class="profile-subtitle">Steady and cautious &mdash; think savings account on steroids</div>
                     <div class="profile-metrics">
                         <div>
                             <div class="profile-metric-label">Net Profit</div>
@@ -2591,22 +2823,26 @@
                             <div class="profile-metric-value green">+24.57%</div>
                         </div>
                     </div>
-                    <div class="chart-container"><canvas id="chartConservative"></canvas></div>
-                    <div class="chart-legend" style="color: var(--accent);">
-                        <div class="chart-legend-item"><div class="chart-legend-line solid"></div> Compound</div>
-                        <div class="chart-legend-item"><div class="chart-legend-line dashed"></div> Withdraw</div>
-                    </div>
                     <div class="profile-stats-table">
                         <div class="profile-stat-row">
-                            <span class="profile-stat-row-label">Sharpe Ratio</span>
+                            <div>
+                                <span class="profile-stat-row-label">Reward-to-Risk Score</span>
+                                <div class="profile-stat-explainer">Return per unit of risk. Higher = better.</div>
+                            </div>
                             <span class="profile-stat-row-value">10.29</span>
                         </div>
                         <div class="profile-stat-row">
-                            <span class="profile-stat-row-label">Max Drawdown</span>
+                            <div>
+                                <span class="profile-stat-row-label">Biggest Dip</span>
+                                <div class="profile-stat-explainer">Worst temporary drop from peak.</div>
+                            </div>
                             <span class="profile-stat-row-value danger">4.23%</span>
                         </div>
                         <div class="profile-stat-row">
-                            <span class="profile-stat-row-label">Profit Factor</span>
+                            <div>
+                                <span class="profile-stat-row-label">Win/Loss Ratio</span>
+                                <div class="profile-stat-explainer">$ won for every $1 lost.</div>
+                            </div>
                             <span class="profile-stat-row-value">1.469</span>
                         </div>
                     </div>
@@ -2618,7 +2854,7 @@
                         <h3 class="profile-name">Balanced</h3>
                         <span class="profile-risk-badge standard">Standard</span>
                     </div>
-                    <div class="profile-subtitle">Optimal Growth/Risk Ratio</div>
+                    <div class="profile-subtitle">The sweet spot between safety and growth</div>
                     <div class="profile-metrics">
                         <div>
                             <div class="profile-metric-label">Net Profit</div>
@@ -2629,22 +2865,26 @@
                             <div class="profile-metric-value green">+49.13%</div>
                         </div>
                     </div>
-                    <div class="chart-container"><canvas id="chartBalanced"></canvas></div>
-                    <div class="chart-legend" style="color: var(--accent-secondary);">
-                        <div class="chart-legend-item"><div class="chart-legend-line solid"></div> Compound</div>
-                        <div class="chart-legend-item"><div class="chart-legend-line dashed"></div> Withdraw</div>
-                    </div>
                     <div class="profile-stats-table">
                         <div class="profile-stat-row">
-                            <span class="profile-stat-row-label">Sharpe Ratio</span>
+                            <div>
+                                <span class="profile-stat-row-label">Reward-to-Risk Score</span>
+                                <div class="profile-stat-explainer">Return per unit of risk. Higher = better.</div>
+                            </div>
                             <span class="profile-stat-row-value">20.57</span>
                         </div>
                         <div class="profile-stat-row">
-                            <span class="profile-stat-row-label">Max Drawdown</span>
+                            <div>
+                                <span class="profile-stat-row-label">Biggest Dip</span>
+                                <div class="profile-stat-explainer">Worst temporary drop from peak.</div>
+                            </div>
                             <span class="profile-stat-row-value danger">8.46%</span>
                         </div>
                         <div class="profile-stat-row">
-                            <span class="profile-stat-row-label">Profit Factor</span>
+                            <div>
+                                <span class="profile-stat-row-label">Win/Loss Ratio</span>
+                                <div class="profile-stat-explainer">$ won for every $1 lost.</div>
+                            </div>
                             <span class="profile-stat-row-value">1.937</span>
                         </div>
                     </div>
@@ -2656,7 +2896,7 @@
                         <h3 class="profile-name">Aggressive</h3>
                         <span class="profile-risk-badge high">High Risk</span>
                     </div>
-                    <div class="profile-subtitle">Maximum Velocity</div>
+                    <div class="profile-subtitle">Higher risk, higher potential &mdash; not for the faint-hearted</div>
                     <div class="profile-metrics">
                         <div>
                             <div class="profile-metric-label">Net Profit</div>
@@ -2667,31 +2907,111 @@
                             <div class="profile-metric-value green">+98.26%</div>
                         </div>
                     </div>
-                    <div class="chart-container"><canvas id="chartAggressive"></canvas></div>
-                    <div class="chart-legend" style="color: var(--silver);">
-                        <div class="chart-legend-item"><div class="chart-legend-line solid"></div> Compound</div>
-                        <div class="chart-legend-item"><div class="chart-legend-line dashed"></div> Withdraw</div>
-                    </div>
                     <div class="profile-stats-table">
                         <div class="profile-stat-row">
-                            <span class="profile-stat-row-label">Sharpe Ratio</span>
+                            <div>
+                                <span class="profile-stat-row-label">Reward-to-Risk Score</span>
+                                <div class="profile-stat-explainer">Return per unit of risk. Higher = better.</div>
+                            </div>
                             <span class="profile-stat-row-value">41.14</span>
                         </div>
                         <div class="profile-stat-row">
-                            <span class="profile-stat-row-label">Max Drawdown</span>
+                            <div>
+                                <span class="profile-stat-row-label">Biggest Dip</span>
+                                <div class="profile-stat-explainer">Worst temporary drop from peak.</div>
+                            </div>
                             <span class="profile-stat-row-value danger">16.92%</span>
                         </div>
                         <div class="profile-stat-row">
-                            <span class="profile-stat-row-label">Profit Factor</span>
+                            <div>
+                                <span class="profile-stat-row-label">Win/Loss Ratio</span>
+                                <div class="profile-stat-explainer">$ won for every $1 lost.</div>
+                            </div>
                             <span class="profile-stat-row-value">2.874</span>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Compound vs Withdrawal Comparison -->
+            <div class="comparison-chart-section anim-fade-up">
+                <h3 class="comparison-chart-title">The Power of Compounding</h3>
+                <p class="comparison-chart-subtitle">Same starting capital, same returns &mdash; the only difference is whether you withdraw profits monthly or let them grow. Think of it like a snowball: the longer it rolls without being touched, the bigger it gets.</p>
+
+                <div class="chart-profile-toggle">
+                    <button class="chart-toggle-btn" data-profile="conservative">Conservative</button>
+                    <button class="chart-toggle-btn active" data-profile="balanced">Balanced</button>
+                    <button class="chart-toggle-btn" data-profile="aggressive">Aggressive</button>
+                </div>
+
+                <div class="comparison-chart-legend">
+                    <div class="comparison-chart-legend-item"><div class="comparison-chart-legend-line solid"></div> Reinvest Everything (Compound)</div>
+                    <div class="comparison-chart-legend-item"><div class="comparison-chart-legend-line dashed"></div> Withdraw Profits Monthly</div>
+                </div>
+
+                <div class="comparison-chart-container">
+                    <canvas id="comparisonChart"></canvas>
+                </div>
+
+                <div class="chart-diff-callout" id="chartDiffCallout"></div>
+            </div>
+
             <div class="profiles-disclaimer anim-fade-up">
                 <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-                <span><strong>Disclaimer:</strong> Performance data based on backtest results from Jan 1 &ndash; Mar 27, 2026. Conservative (0.5x) and Aggressive (2.0x) profiles are derived from actual Balanced (1.0x) data. Charts visualize compound vs weekly withdrawal scenarios for illustration. Trading involves risk. Past performance is not indicative of future results.</span>
+                <span><strong>Disclaimer:</strong> Performance data is based on a simulation (Jan 1 &ndash; Mar 27, 2026). Conservative (0.5x) and Aggressive (2.0x) profiles are scaled from actual Balanced (1.0x) results. The chart above compares reinvesting all profits vs withdrawing them monthly &mdash; for illustration only. Trading involves risk. Past performance is not indicative of future results.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================
+         PROFIT SPLIT
+         ============================ -->
+    <section id="profit-split">
+        <div class="container">
+            <div class="section-header anim-fade-up">
+                <div class="section-label">Transparent Pricing</div>
+                <h2 class="section-title">How We Get Paid</h2>
+            </div>
+
+            <p class="split-intro anim-fade-up">We only make money when <em>you</em> make money. Our fee is a percentage of the profits we generate for you each month &mdash; never a fixed fee, and never a fee on losses. Think of it like a real estate agent who only gets paid when your house actually sells.</p>
+
+            <div class="split-grid">
+                <div class="split-card anim-fade-up">
+                    <div class="split-tier-label">Starter</div>
+                    <div class="split-deposit-range">Up to $100K</div>
+                    <div class="split-pct">50<span>%</span></div>
+                    <div class="split-pct-label">Profit Split</div>
+                    <div class="split-example">If we generate $2,000 in profit this month, our share is $1,000 and you keep $1,000.</div>
+                </div>
+
+                <div class="split-card anim-fade-up">
+                    <div class="split-tier-label">Growth</div>
+                    <div class="split-deposit-range">$100K &ndash; $500K</div>
+                    <div class="split-pct">40<span>%</span></div>
+                    <div class="split-pct-label">Profit Split</div>
+                    <div class="split-example">If we generate $10,000 in profit, our share is $4,000 and you keep $6,000.</div>
+                </div>
+
+                <div class="split-card split-highlight anim-fade-up">
+                    <div class="split-tier-label">Premium</div>
+                    <div class="split-deposit-range">$500K &ndash; $1M</div>
+                    <div class="split-pct">35<span>%</span></div>
+                    <div class="split-pct-label">Profit Split</div>
+                    <div class="split-example">If we generate $30,000 in profit, our share is $10,500 and you keep $19,500.</div>
+                </div>
+
+                <div class="split-card anim-fade-up">
+                    <div class="split-tier-label">Institutional</div>
+                    <div class="split-deposit-range">Above $1M</div>
+                    <div class="split-pct">30<span>%</span></div>
+                    <div class="split-pct-label">Profit Split</div>
+                    <div class="split-example">If we generate $50,000 in profit, our share is $15,000 and you keep $35,000.</div>
+                </div>
+            </div>
+
+            <div class="split-notes anim-fade-up">
+                <div class="split-note"><strong>No profit = No fee.</strong> If the algorithm doesn&rsquo;t make money in a given month, you pay nothing.</div>
+                <div class="split-note"><strong>High-Water Mark.</strong> We only charge on <em>new</em> profits. If the account dips and recovers, we don&rsquo;t charge again on the recovery portion &mdash; like a gym that doesn&rsquo;t charge you for the days you didn&rsquo;t show up.</div>
             </div>
         </div>
     </section>
@@ -2703,8 +3023,8 @@
         <div class="container">
             <div class="calc-header-row header-row-line anim-fade-up">
                 <div>
-                    <div class="section-label">Projection Tool</div>
-                    <h2 class="section-title">Live Return & Risk Calculator</h2>
+                    <div class="section-label">What-If Calculator</div>
+                    <h2 class="section-title">See What Your Money Could Do</h2>
                 </div>
                 <div class="calc-header-right">
                     <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/></svg>
@@ -2716,7 +3036,7 @@
                 <div class="calc-params anim-fade-left">
                     <div class="calc-params-title">
                         <svg viewBox="0 0 24 24"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/></svg>
-                        Parameters
+                        Your Settings
                     </div>
                     <div class="calc-input-group">
                         <label for="calcCapital">Starting Capital ($)</label>
@@ -2731,22 +3051,22 @@
                         </select>
                     </div>
                     <div class="calc-input-group">
-                        <label for="calcReturn">Base Monthly Return (%) <span class="label-hint">Mar '26 Backtest</span></label>
+                        <label for="calcReturn">Monthly Return (%) <span class="label-hint">Mar &rsquo;26 Simulation</span></label>
                         <input type="number" id="calcReturn" value="11.32" step="0.1">
                     </div>
                     <div class="calc-input-group">
-                        <label for="calcHorizon">Time Horizon (Weeks) <span class="label-hint" id="calcWeeksDisplay">12 Weeks</span></label>
+                        <label for="calcHorizon">How Long? (Weeks) <span class="label-hint" id="calcWeeksDisplay">12 Weeks</span></label>
                         <input type="range" id="calcHorizon" value="12" min="4" max="52" step="1">
                     </div>
                     <div class="calc-input-group">
-                        <label>Strategy</label>
+                        <label>What do you do with profits?</label>
                         <div class="calc-toggle-group">
-                            <button class="calc-toggle active" id="calcCompoundBtn">Compound</button>
-                            <button class="calc-toggle" id="calcWithdrawBtn">Weekly Withdraw</button>
+                            <button class="calc-toggle active" id="calcCompoundBtn">Reinvest Everything</button>
+                            <button class="calc-toggle" id="calcWithdrawBtn">Take Profits Out Weekly</button>
                         </div>
                     </div>
                     <div class="calc-input-group" id="calcWithdrawPctGroup" style="display:none;">
-                        <label for="calcWithdrawPct">Withdraw % of Profit</label>
+                        <label for="calcWithdrawPct">How much profit to take out (%)</label>
                         <input type="number" id="calcWithdrawPct" value="100" min="10" max="100" step="10">
                     </div>
                 </div>
@@ -2755,13 +3075,13 @@
                     <div class="calc-outputs-top">
                         <div class="calc-output-card primary">
                             <div class="calc-output-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z" fill="var(--border)"/></svg></div>
-                            <div class="calc-output-label">Projected End Balance</div>
+                            <div class="calc-output-label">Your Projected Balance</div>
                             <div class="calc-output-value positive" id="calcEndBalance">$10,000</div>
                             <div class="calc-output-sub">Initial Capital: $<span id="calcInitialDisplay">10,000</span></div>
                         </div>
                         <div class="calc-output-card">
                             <div class="calc-output-icon"><svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z" fill="var(--border)"/></svg></div>
-                            <div class="calc-output-label">Total Value Generated</div>
+                            <div class="calc-output-label">Total Value Created</div>
                             <div class="calc-output-value" id="calcTotalValue">$10,000</div>
                             <div class="calc-output-sub">End Balance + Total Withdrawals</div>
                         </div>
@@ -2772,7 +3092,7 @@
                             <div class="calc-output-value medium" id="calcTotalWithdrawn">$0</div>
                         </div>
                         <div class="calc-output-card">
-                            <div class="calc-output-label">Est. Max Drawdown</div>
+                            <div class="calc-output-label">Estimated Biggest Dip</div>
                             <div class="calc-output-value medium warning" id="calcMaxDD">8.46%</div>
                         </div>
                         <div class="calc-output-card">
@@ -2788,7 +3108,7 @@
 
             <div class="calc-disclaimer anim-fade-up">
                 <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-                <span><strong>Compliance Disclaimer:</strong> These calculations are hypothetical and for illustrative purposes only. They do not represent actual trading results or a guarantee of future performance. The "Base Monthly Return" default is derived from a specific backtest period (March 2026) and may not be sustainable. Trading carries a high level of risk.</span>
+                <span><strong>Important:</strong> These calculations are hypothetical and for illustration only. They do not represent actual trading results or guarantee future performance. The default monthly return is based on a specific simulation period (March 2026) and may not be sustainable. Trading carries a high level of risk &mdash; only invest money you can afford to lose.</span>
             </div>
         </div>
     </section>
@@ -2818,7 +3138,7 @@
                         <span class="faq-chevron">&#9662;</span>
                     </button>
                     <div class="faq-answer">
-                        <div class="faq-answer-inner">A 30% monthly performance fee applies to net profits. This comprehensively covers software updates, implementation, and dedicated support.</div>
+                        <div class="faq-answer-inner">We use a tiered profit-split model &mdash; we only take a percentage of the profits we generate, and only when you&rsquo;re making money. The split depends on your deposit size: 50% for accounts under $100K, 40% for $100K&ndash;$500K, 35% for $500K&ndash;$1M, and 30% for accounts over $1M. No profit means no fee. See the Profit Split section above for full details and examples.</div>
                     </div>
                 </div>
                 <div class="faq-item anim-fade-up">
@@ -2827,7 +3147,7 @@
                         <span class="faq-chevron">&#9662;</span>
                     </button>
                     <div class="faq-answer">
-                        <div class="faq-answer-inner">The algorithm operates exclusively in the Gold market (XAU/USD), explicitly tailored to capitalize on its unique short-term volatility patterns.</div>
+                        <div class="faq-answer-inner">Our algorithm trades gold &mdash; specifically the gold price measured in US dollars (known as XAU/USD in trading). Gold is one of the most liquid markets in the world, meaning there&rsquo;s always someone ready to buy or sell, and its price moves enough to create frequent trading opportunities.</div>
                     </div>
                 </div>
                 <div class="faq-item anim-fade-up">
@@ -2845,7 +3165,7 @@
                         <span class="faq-chevron">&#9662;</span>
                     </button>
                     <div class="faq-answer">
-                        <div class="faq-answer-inner">Through strict algorithmic discipline: per-trade Stop Loss, dynamic exposure caps, and a customizable Equity Stop Loss based on your selected risk profile.</div>
+                        <div class="faq-answer-inner">Through multiple layers of safety: (1) Every trade has a &ldquo;Stop Loss&rdquo; &mdash; an automatic limit that closes the trade if it moves against you, like a circuit breaker in your home&rsquo;s electrical panel. (2) The system adjusts how much to risk on each trade based on your account size. (3) There&rsquo;s an account-wide safety switch that pauses all trading if your balance drops beyond your chosen comfort level.</div>
                     </div>
                 </div>
                 <div class="faq-item anim-fade-up">
@@ -3245,9 +3565,31 @@
 
         // Profile cards — no entrance animation, tilt only (added below)
 
+        // Comparison chart section
+        gsap.from('.comparison-chart-section', {
+            opacity: 0, y: 30, duration: 0.8, ease: 'power3.out',
+            scrollTrigger: { trigger: '.comparison-chart-section', start: 'top 80%', toggleActions: 'play none none none' }
+        });
+
         gsap.from('.profiles-disclaimer', {
             opacity: 0, y: 20, duration: 0.6, ease: 'power3.out',
             scrollTrigger: { trigger: '.profiles-disclaimer', start: 'top 90%', toggleActions: 'play none none none' }
+        });
+
+        // Profit Split cards
+        gsap.from('#profit-split .split-card', {
+            opacity: 0, y: 40, duration: 0.7, stagger: 0.15, ease: 'power3.out',
+            scrollTrigger: { trigger: '#profit-split .split-grid', start: 'top 80%', toggleActions: 'play none none none' }
+        });
+
+        gsap.from('#profit-split .split-notes > *', {
+            opacity: 0, y: 20, duration: 0.5, stagger: 0.1, ease: 'power3.out',
+            scrollTrigger: { trigger: '#profit-split .split-notes', start: 'top 90%', toggleActions: 'play none none none' }
+        });
+
+        gsap.from('.split-intro', {
+            opacity: 0, y: 20, duration: 0.6, ease: 'power3.out',
+            scrollTrigger: { trigger: '.split-intro', start: 'top 85%', toggleActions: 'play none none none' }
         });
 
         // Calculator
@@ -3303,6 +3645,7 @@
             addTilt('.works-card');
             addTilt('.comparison-card');
             addTilt('.profile-card');
+            addTilt('.split-card');
         }
 
         /* ========================================
@@ -3347,118 +3690,175 @@
 
 
         /* ========================================
-           CHART.JS — RISK PROFILES
+           CHART.JS — COMPOUND vs WITHDRAWAL COMPARISON
            ======================================== */
-        const weeks = Array.from({ length: 13 }, (_, i) => i);
-        const weekLabels = weeks.map(w => 'W' + w);
-        const initCap = 10000;
+        const compWeeks = Array.from({ length: 13 }, (_, i) => i);
+        const compWeekLabels = compWeeks.map(w => 'W' + w);
+        const compInitCap = 10000;
 
-        function buildChartData(weeklyReturn) {
-            const compound = weeks.map(w => initCap * Math.pow(1 + weeklyReturn, w));
-            const withdraw = weeks.map(w => initCap + (w * initCap * weeklyReturn * 0.5));
-            return { compound, withdraw };
-        }
+        const compProfiles = {
+            conservative: { weeklyReturn: 0.0566, color: '#00d4ff', label: 'Conservative' },
+            balanced:     { weeklyReturn: 0.1132, color: '#6366f1', label: 'Balanced' },
+            aggressive:   { weeklyReturn: 0.2264, color: '#94a3b8', label: 'Aggressive' }
+        };
 
-        const conservative = buildChartData(0.0566);
-        const balanced = buildChartData(0.1132);
-        const aggressive = buildChartData(0.2264);
-
-        function createChart(canvasId, data, color) {
-            const ctx = document.getElementById(canvasId);
-            if (!ctx) return;
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: weekLabels,
-                    datasets: [
-                        {
-                            data: data.compound,
-                            borderColor: color,
-                            backgroundColor: 'transparent',
-                            borderWidth: 2,
-                            tension: 0.3,
-                            pointRadius: 0,
-                            pointHoverRadius: 4,
-                            pointHoverBackgroundColor: color
-                        },
-                        {
-                            data: data.withdraw,
-                            borderColor: color,
-                            backgroundColor: 'transparent',
-                            borderWidth: 2,
-                            borderDash: [5, 5],
-                            tension: 0.3,
-                            pointRadius: 0,
-                            pointHoverRadius: 4,
-                            pointHoverBackgroundColor: color
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    interaction: {
-                        intersect: false,
-                        mode: 'index'
-                    },
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            backgroundColor: '#1a2332',
-                            titleColor: '#94a3b8',
-                            bodyColor: '#f8fafc',
-                            borderColor: '#1e2a3a',
-                            borderWidth: 1,
-                            padding: 10,
-                            displayColors: false,
-                            callbacks: {
-                                label: function(item) {
-                                    const label = item.datasetIndex === 0 ? 'Compound' : 'Withdraw';
-                                    return label + ': $' + item.raw.toLocaleString('en-US', { maximumFractionDigits: 0 });
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            display: true,
-                            ticks: { color: '#6b7280', font: { size: 10 } },
-                            grid: { display: false },
-                            border: { display: false }
-                        },
-                        y: {
-                            display: true,
-                            position: 'left',
-                            beginAtZero: false,
-                            ticks: {
-                                color: '#6b7280',
-                                font: { size: 10 },
-                                callback: function(v) { return '$' + (v/1000).toFixed(v % 1000 === 0 ? 0 : 1) + 'k'; }
-                            },
-                            grid: { color: 'rgba(30,42,58,0.4)', drawBorder: false },
-                            border: { display: false }
-                        }
-                    },
-                    animation: {
-                        duration: 1500,
-                        easing: 'easeOutQuart'
+        function buildComparisonData(weeklyReturn) {
+            const compound = compWeeks.map(w => compInitCap * Math.pow(1 + weeklyReturn, w));
+            // Monthly withdrawal: take out all profit every 4 weeks, keep base flat between withdrawals
+            const withdraw = [];
+            let bal = compInitCap;
+            let totalWithdrawn = 0;
+            for (let w = 0; w < 13; w++) {
+                withdraw.push(bal);
+                if (w > 0) {
+                    const profit = bal * weeklyReturn;
+                    if (w % 4 === 0) {
+                        totalWithdrawn += bal - compInitCap;
+                        bal = compInitCap; // reset to base after monthly withdrawal
+                    } else {
+                        bal += profit;
                     }
                 }
-            });
+            }
+            return { compound, withdraw, totalWithdrawn };
         }
 
-        // Init charts when scrolled into view
-        let chartsInitialized = false;
+        let comparisonChart = null;
+        let activeCompProfile = 'balanced';
+
+        function updateComparisonChart(profileKey) {
+            activeCompProfile = profileKey;
+            const profile = compProfiles[profileKey];
+            const data = buildComparisonData(profile.weeklyReturn);
+
+            // Update toggle buttons
+            document.querySelectorAll('.chart-toggle-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.profile === profileKey);
+            });
+
+            // Update callout
+            const compFinal = data.compound[12];
+            const withFinal = data.withdraw[12];
+            const diff = compFinal - withFinal;
+            document.getElementById('chartDiffCallout').innerHTML =
+                'By reinvesting your profits, you would have <strong>$' +
+                Math.round(compFinal).toLocaleString('en-US') + '</strong> vs <strong>$' +
+                Math.round(withFinal).toLocaleString('en-US') + '</strong> &mdash; that\'s <strong>$' +
+                Math.round(diff).toLocaleString('en-US') + ' more</strong> after just 13 weeks.';
+
+            if (comparisonChart) {
+                comparisonChart.data.datasets[0].data = data.compound;
+                comparisonChart.data.datasets[0].borderColor = profile.color;
+                comparisonChart.data.datasets[0].pointHoverBackgroundColor = profile.color;
+                comparisonChart.data.datasets[0].backgroundColor = profile.color.replace(')', ', 0.08)').replace('rgb', 'rgba').replace('#', '');
+                // Use a semi-transparent fill
+                const r = parseInt(profile.color.slice(1,3), 16) || 0;
+                const g = parseInt(profile.color.slice(3,5), 16) || 0;
+                const b = parseInt(profile.color.slice(5,7), 16) || 0;
+                comparisonChart.data.datasets[0].backgroundColor = 'rgba(' + r + ',' + g + ',' + b + ',0.08)';
+                comparisonChart.data.datasets[1].data = data.withdraw;
+                comparisonChart.data.datasets[1].borderColor = profile.color;
+                comparisonChart.data.datasets[1].pointHoverBackgroundColor = profile.color;
+                comparisonChart.update();
+            } else {
+                const ctx = document.getElementById('comparisonChart');
+                if (!ctx) return;
+                comparisonChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: compWeekLabels,
+                        datasets: [
+                            {
+                                label: 'Reinvest Everything',
+                                data: data.compound,
+                                borderColor: profile.color,
+                                borderWidth: 2.5,
+                                tension: 0.3,
+                                pointRadius: 0,
+                                pointHoverRadius: 5,
+                                pointHoverBackgroundColor: profile.color,
+                                fill: '+1',
+                                backgroundColor: 'rgba(99, 102, 241, 0.08)'
+                            },
+                            {
+                                label: 'Withdraw Monthly',
+                                data: data.withdraw,
+                                borderColor: profile.color,
+                                borderWidth: 2,
+                                borderDash: [6, 4],
+                                tension: 0.3,
+                                pointRadius: 0,
+                                pointHoverRadius: 5,
+                                pointHoverBackgroundColor: profile.color,
+                                fill: false,
+                                backgroundColor: 'transparent'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: { intersect: false, mode: 'index' },
+                        plugins: {
+                            legend: { display: false },
+                            filler: {},
+                            tooltip: {
+                                backgroundColor: '#1a2332',
+                                titleColor: '#94a3b8',
+                                bodyColor: '#f8fafc',
+                                borderColor: '#1e2a3a',
+                                borderWidth: 1,
+                                padding: 12,
+                                displayColors: false,
+                                callbacks: {
+                                    label: function(item) {
+                                        const label = item.datasetIndex === 0 ? 'Compound' : 'Withdraw Monthly';
+                                        return label + ': $' + item.raw.toLocaleString('en-US', { maximumFractionDigits: 0 });
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                display: true,
+                                ticks: { color: '#6b7280', font: { size: 10 } },
+                                grid: { display: false },
+                                border: { display: false }
+                            },
+                            y: {
+                                display: true,
+                                position: 'left',
+                                beginAtZero: false,
+                                ticks: {
+                                    color: '#6b7280',
+                                    font: { size: 10 },
+                                    callback: function(v) { return '$' + (v/1000).toFixed(v % 1000 === 0 ? 0 : 1) + 'k'; }
+                                },
+                                grid: { color: 'rgba(30,42,58,0.4)' },
+                                border: { display: false }
+                            }
+                        },
+                        animation: { duration: 1200, easing: 'easeOutQuart' }
+                    }
+                });
+            }
+        }
+
+        // Toggle button listeners
+        document.querySelectorAll('.chart-toggle-btn').forEach(btn => {
+            btn.addEventListener('click', () => updateComparisonChart(btn.dataset.profile));
+        });
+
+        // Init comparison chart when scrolled into view
+        let compChartInitialized = false;
         ScrollTrigger.create({
-            trigger: '#profiles',
+            trigger: '.comparison-chart-section',
             start: 'top 80%',
             once: true,
             onEnter: () => {
-                if (chartsInitialized) return;
-                chartsInitialized = true;
-                createChart('chartConservative', conservative, '#00d4ff');
-                createChart('chartBalanced', balanced, '#6366f1');
-                createChart('chartAggressive', aggressive, '#94a3b8');
+                if (compChartInitialized) return;
+                compChartInitialized = true;
+                updateComparisonChart('balanced');
             }
         });
 
