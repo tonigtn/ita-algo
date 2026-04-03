@@ -3579,6 +3579,7 @@
         // Profit Split cards
         gsap.from('#profit-split .split-card', {
             opacity: 0, y: 40, duration: 0.7, stagger: 0.15, ease: 'power3.out',
+            clearProps: 'transform',
             scrollTrigger: { trigger: '#profit-split .split-grid', start: 'top 80%', toggleActions: 'play none none none' }
         });
 
