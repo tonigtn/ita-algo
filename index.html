@@ -2048,16 +2048,34 @@
 
             .flow-diagram-wrap {
                 grid-template-columns: 1fr;
+                grid-template-rows: auto;
                 gap: 16px;
             }
 
-            .flow-algo-link {
-                grid-column: 1;
-            }
+            /* Reorder for logical vertical flow on mobile */
+            .flow-diagram-wrap > .flow-box:nth-child(1) { order: 1; }           /* Your Bank */
+            .flow-diagram-wrap > .flow-arrows:nth-child(2) { order: 2; }        /* Deposit/Withdraw */
+            .flow-diagram-wrap > .flow-box:nth-child(3) { order: 3; }           /* Broker Account */
+            .flow-diagram-wrap > .flow-algo-link { order: 4; grid-column: 1; grid-row: auto; }  /* ITA ALGO System */
+            .flow-diagram-wrap > .flow-arrows:nth-child(4) { order: 5; }        /* Execution/Sync */
+            .flow-diagram-wrap > .flow-box:nth-child(5) { order: 6; }           /* Market P&L */
 
             .flow-arrows {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .flow-algo-link {
                 flex-direction: row;
-                justify-content: center;
+                gap: 12px;
+                align-items: center;
+            }
+
+            .flow-algo-link-line {
+                width: 24px;
+                height: 1px;
+                border-left: none;
+                border-top: 2px solid var(--border);
             }
 
             .form-row {
