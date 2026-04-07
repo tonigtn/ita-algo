@@ -3216,9 +3216,102 @@
                 <div class="chart-diff-callout" id="chartDiffCallout"></div>
             </div>
 
+            <!-- ============================
+                 INTERACTIVE CALCULATOR (merged into profiles)
+                 ============================ -->
+            <div style="margin-top:60px;padding-top:48px;border-top:1px solid var(--border);" class="anim-fade-up">
+                <h3 style="font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--white);margin-bottom:8px;">Investment Calculator</h3>
+                <p style="font-size:15px;color:var(--silver);margin-bottom:32px;max-width:600px;">See what your capital could generate. Select a risk profile above, then adjust your starting capital to see projected gross and net returns over 3 months.</p>
+
+                <div class="calc-layout" style="display:grid;grid-template-columns:380px 1fr;gap:32px;align-items:start;">
+                    <!-- LEFT: Inputs + Profit Split -->
+                    <div style="background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--card-radius);padding:28px;">
+                        <div style="font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--white);margin-bottom:20px;">Your Settings</div>
+
+                        <div style="margin-bottom:20px;">
+                            <label for="calcCapital" style="display:block;font-size:11px;font-weight:600;color:var(--silver);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Starting Capital ($)</label>
+                            <input type="number" id="calcCapital" value="10000" min="5000" step="1000" style="width:100%;background:var(--bg-deep);border:1px solid var(--border);border-radius:8px;padding:12px 16px;font-size:16px;color:var(--white);font-family:var(--font-body);">
+                        </div>
+
+                        <div style="margin-bottom:20px;">
+                            <label for="calcRisk" style="display:block;font-size:11px;font-weight:600;color:var(--silver);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Risk Profile</label>
+                            <select id="calcRisk" style="width:100%;background:var(--bg-deep);border:1px solid var(--border);border-radius:8px;padding:12px 16px;font-size:16px;color:var(--white);font-family:var(--font-body);cursor:pointer;appearance:none;">
+                                <option value="0.5">Conservative (0.5x)</option>
+                                <option value="1.0" selected>Balanced (1.0x)</option>
+                                <option value="2.0">Aggressive (2.0x)</option>
+                            </select>
+                        </div>
+
+                        <div style="margin-bottom:20px;">
+                            <label style="display:block;font-size:11px;font-weight:600;color:var(--silver);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">What do you do with profits?</label>
+                            <div style="display:flex;gap:0;background:var(--bg-deep);border-radius:8px;border:1px solid var(--border);overflow:hidden;">
+                                <button class="calc-toggle active" id="calcCompoundBtn" style="flex:1;padding:12px;background:var(--accent);border:none;color:var(--white);font-size:13px;font-weight:600;font-family:var(--font-body);cursor:pointer;">Reinvest Everything</button>
+                                <button class="calc-toggle" id="calcWithdrawBtn" style="flex:1;padding:12px;background:transparent;border:none;color:var(--silver);font-size:13px;font-weight:600;font-family:var(--font-body);cursor:pointer;">Withdraw Monthly</button>
+                            </div>
+                        </div>
+
+                        <!-- Profit Split Display -->
+                        <div style="background:var(--bg-deep);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:16px;">
+                            <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--silver);margin-bottom:8px;">Your Profit Split</div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;">
+                                <div>
+                                    <span style="font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--accent);" id="calcSplitYou">50</span><span style="color:var(--silver);font-size:14px;">% You</span>
+                                </div>
+                                <div style="color:var(--silver);font-size:18px;">/</div>
+                                <div>
+                                    <span style="font-family:var(--font-display);font-size:24px;font-weight:700;color:var(--silver);" id="calcSplitAlgo">50</span><span style="color:var(--silver);font-size:14px;">% ITA ALGO</span>
+                                </div>
+                            </div>
+                            <div style="font-size:11px;color:var(--silver);opacity:0.6;margin-top:6px;" id="calcSplitTier">Accounts under $100K</div>
+                        </div>
+
+                        <!-- Withdraw anytime callout -->
+                        <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;background:rgba(0,232,123,0.06);border:1px solid rgba(0,232,123,0.15);border-radius:8px;">
+                            <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:var(--positive);flex-shrink:0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                            <span style="font-size:13px;color:var(--positive);font-weight:600;">You can withdraw your money anytime</span>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: Output Cards + Chart -->
+                    <div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+                            <div style="background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--card-radius);padding:20px 24px;">
+                                <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--silver);margin-bottom:8px;">Gross Projected Balance</div>
+                                <div style="font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--white);" id="calcGrossBalance">$14,913</div>
+                                <div style="font-size:11px;color:var(--silver);margin-top:4px;">Before profit split</div>
+                            </div>
+                            <div style="background:var(--bg-card);border:2px solid var(--accent);border-radius:var(--card-radius);padding:20px 24px;box-shadow:0 0 30px var(--accent-glow);">
+                                <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:8px;">Your Net Balance</div>
+                                <div style="font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--positive);" id="calcNetBalance">$12,457</div>
+                                <div style="font-size:11px;color:var(--silver);margin-top:4px;">Your pure profit after our share</div>
+                            </div>
+                        </div>
+                        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px;">
+                            <div style="background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:12px;padding:16px;">
+                                <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--silver);margin-bottom:4px;">ITA ALGO Share</div>
+                                <div style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--silver);" id="calcAlgoShare">$2,457</div>
+                            </div>
+                            <div style="background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:12px;padding:16px;">
+                                <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--silver);margin-bottom:4px;">Estimated Biggest Dip</div>
+                                <div style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--warning);" id="calcMaxDD">8.46%</div>
+                            </div>
+                            <div style="background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:12px;padding:16px;">
+                                <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--silver);margin-bottom:4px;">Projection Period</div>
+                                <div style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--white);">3 Months</div>
+                            </div>
+                        </div>
+                        <div style="background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--card-radius);padding:20px;height:220px;position:relative;">
+                            <canvas id="calcChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="font-size:11px;color:var(--silver);opacity:0.5;margin-top:20px;text-align:center;">These calculations are hypothetical. They do not represent actual results or guarantee future performance. Trading carries a high level of risk.</div>
+            </div>
+
             <div class="profiles-disclaimer anim-fade-up">
                 <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-                <span><strong>Disclaimer:</strong> Performance data is based on a simulation (Jan 1 &ndash; Mar 27, 2026). Conservative (0.5x) and Aggressive (2.0x) profiles are scaled from actual Balanced (1.0x) results. The chart above compares reinvesting all profits vs withdrawing them monthly &mdash; for illustration only. Trading involves risk. Past performance is not indicative of future results.</span>
+                <span><strong>Disclaimer:</strong> Performance data is based on a simulation (Jan 1 &ndash; Mar 27, 2026). Conservative (0.5x) and Aggressive (2.0x) profiles are scaled from actual Balanced (1.0x) results. Trading involves risk. Past performance is not indicative of future results.</span>
             </div>
         </div>
     </section>
@@ -3942,6 +4035,195 @@
                 updateComparisonChart('balanced');
             }
         });
+
+        /* ========================================
+           INTERACTIVE CALCULATOR
+           ======================================== */
+        const calcProfiles = {
+            '0.5': { weeklyReturn: 0.0566, maxDD: 4.23 },
+            '1.0': { weeklyReturn: 0.1132, maxDD: 8.46 },
+            '2.0': { weeklyReturn: 0.2264, maxDD: 16.92 }
+        };
+
+        const calcCapital = document.getElementById('calcCapital');
+        const calcRisk = document.getElementById('calcRisk');
+        const calcCompoundBtn = document.getElementById('calcCompoundBtn');
+        const calcWithdrawBtn = document.getElementById('calcWithdrawBtn');
+        const calcGrossBalance = document.getElementById('calcGrossBalance');
+        const calcNetBalance = document.getElementById('calcNetBalance');
+        const calcAlgoShare = document.getElementById('calcAlgoShare');
+        const calcMaxDD = document.getElementById('calcMaxDD');
+        const calcSplitYou = document.getElementById('calcSplitYou');
+        const calcSplitAlgo = document.getElementById('calcSplitAlgo');
+        const calcSplitTier = document.getElementById('calcSplitTier');
+
+        let calcIsCompound = true;
+        let calcChartInstance = null;
+
+        function getSplitPct(capital) {
+            if (capital >= 1000000) return { you: 70, algo: 30, label: 'Accounts above $1M' };
+            if (capital >= 500000) return { you: 65, algo: 35, label: '$500K – $1M' };
+            if (capital >= 100000) return { you: 60, algo: 40, label: '$100K – $500K' };
+            return { you: 50, algo: 50, label: 'Accounts under $100K' };
+        }
+
+        calcCompoundBtn.addEventListener('click', () => {
+            calcIsCompound = true;
+            calcCompoundBtn.style.background = 'var(--accent)';
+            calcCompoundBtn.style.color = 'var(--white)';
+            calcWithdrawBtn.style.background = 'transparent';
+            calcWithdrawBtn.style.color = 'var(--silver)';
+            calcUpdate();
+        });
+        calcWithdrawBtn.addEventListener('click', () => {
+            calcIsCompound = false;
+            calcWithdrawBtn.style.background = 'var(--accent)';
+            calcWithdrawBtn.style.color = 'var(--white)';
+            calcCompoundBtn.style.background = 'transparent';
+            calcCompoundBtn.style.color = 'var(--silver)';
+            calcUpdate();
+        });
+        calcCapital.addEventListener('input', calcUpdate);
+        calcRisk.addEventListener('change', calcUpdate);
+
+        function calcUpdate() {
+            const capital = parseFloat(calcCapital.value) || 10000;
+            const profile = calcProfiles[calcRisk.value] || calcProfiles['1.0'];
+            const totalWeeks = 13; // Fixed 3 months
+            const split = getSplitPct(capital);
+
+            // Update split display
+            calcSplitYou.textContent = split.you;
+            calcSplitAlgo.textContent = split.algo;
+            calcSplitTier.textContent = split.label;
+            calcMaxDD.textContent = profile.maxDD.toFixed(2) + '%';
+
+            const fmt = v => '$' + Math.round(v).toLocaleString('en-US');
+
+            // Build chart data with slight randomness for realistic dips
+            const seed = Math.round(capital * 7 + parseFloat(calcRisk.value) * 13);
+            function pseudoRand(i) { return ((Math.sin(seed + i * 37) * 10000) % 1 + 1) % 1; }
+
+            const compoundData = [capital];
+            const withdrawData = [capital];
+
+            if (calcIsCompound) {
+                let bal = capital;
+                for (let w = 1; w <= totalWeeks; w++) {
+                    const noise = 1 + (pseudoRand(w) - 0.5) * 0.02; // ±1% noise
+                    bal = bal * (1 + profile.weeklyReturn) * noise;
+                    compoundData.push(bal);
+                }
+                const grossProfit = compoundData[totalWeeks] - capital;
+                const netProfit = grossProfit * (split.you / 100);
+                const algoFee = grossProfit * (split.algo / 100);
+
+                animateValue(calcGrossBalance, compoundData[totalWeeks]);
+                animateValue(calcNetBalance, capital + netProfit);
+                animateValue(calcAlgoShare, algoFee);
+            } else {
+                let bal = capital;
+                let totalWithdrawn = 0;
+                for (let w = 1; w <= totalWeeks; w++) {
+                    const noise = 1 + (pseudoRand(w) - 0.5) * 0.02;
+                    const profit = bal * profile.weeklyReturn * noise;
+                    if (w % 4 === 0 && w > 0) {
+                        totalWithdrawn += profit * 2; // ~2 weeks of profit withdrawn
+                        bal = bal + profit - profit * 2;
+                        if (bal < capital * 0.95) bal = capital * 0.95; // floor
+                    } else {
+                        bal += profit;
+                    }
+                    withdrawData.push(bal);
+                }
+                const grossEnd = bal + totalWithdrawn;
+                const grossProfit = grossEnd - capital;
+                const netProfit = grossProfit * (split.you / 100);
+                const algoFee = grossProfit * (split.algo / 100);
+
+                animateValue(calcGrossBalance, grossEnd);
+                animateValue(calcNetBalance, capital + netProfit);
+                animateValue(calcAlgoShare, algoFee);
+            }
+
+            // Update chart
+            const chartData = calcIsCompound ? compoundData : withdrawData;
+            const chartLabels = Array.from({ length: chartData.length }, (_, i) => 'W' + i);
+            const chartColor = calcRisk.value === '0.5' ? '#0047FF' : calcRisk.value === '1.0' ? '#4080FF' : '#94a3b8';
+
+            if (calcChartInstance) {
+                calcChartInstance.data.labels = chartLabels;
+                calcChartInstance.data.datasets[0].data = chartData;
+                calcChartInstance.data.datasets[0].borderColor = chartColor;
+                calcChartInstance.data.datasets[0].pointHoverBackgroundColor = chartColor;
+                calcChartInstance.update('none');
+            } else {
+                const ctx = document.getElementById('calcChart');
+                if (!ctx) return;
+                calcChartInstance = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: chartLabels,
+                        datasets: [{
+                            data: chartData,
+                            borderColor: chartColor,
+                            backgroundColor: 'transparent',
+                            borderWidth: 2.5,
+                            tension: 0.3,
+                            pointRadius: 0,
+                            pointHoverRadius: 5,
+                            pointHoverBackgroundColor: chartColor,
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: { intersect: false, mode: 'index' },
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                backgroundColor: '#0c0c2e',
+                                titleColor: '#94a3b8',
+                                bodyColor: '#f8fafc',
+                                borderColor: '#1a1a3e',
+                                borderWidth: 1,
+                                padding: 10,
+                                displayColors: false,
+                                callbacks: {
+                                    label: function(item) {
+                                        return '$' + item.raw.toLocaleString('en-US', { maximumFractionDigits: 0 });
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            x: {
+                                display: true,
+                                ticks: { color: '#4a4a6a', font: { size: 10 } },
+                                grid: { display: false },
+                                border: { display: false }
+                            },
+                            y: {
+                                display: true,
+                                position: 'left',
+                                beginAtZero: false,
+                                ticks: {
+                                    color: '#4a4a6a',
+                                    font: { size: 10 },
+                                    callback: function(v) { return '$' + (v/1000).toFixed(v % 1000 === 0 ? 0 : 1) + 'k'; }
+                                },
+                                grid: { color: 'rgba(26,26,62,0.6)' },
+                                border: { display: false }
+                            }
+                        },
+                        animation: { duration: 600, easing: 'easeOutQuart' }
+                    }
+                });
+            }
+        }
+
+        calcUpdate();
 
         /* ========================================
            FAQ ACCORDION
