@@ -2046,47 +2046,14 @@
                 display: none;
             }
 
+            /* Hide the desktop grid diagram on mobile */
             .flow-diagram-wrap {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                gap: 8px;
+                display: none !important;
             }
 
-            .flow-diagram-wrap > * {
-                grid-column: auto !important;
-                grid-row: auto !important;
-                width: 100%;
-                max-width: 300px;
-            }
-
-            .flow-diagram-wrap > .flow-arrows {
-                max-width: none;
-            }
-
-            .flow-arrows {
-                flex-direction: column;
-                align-items: center;
-                padding: 0;
-            }
-
-            /* Reorder: Bank(1) → Arrows(2) → Broker(3) → AlgoLink(4) → Arrows(5) → Market(6) */
-            .flow-diagram-wrap > .flow-box:first-child { order: 1; }
-            .flow-diagram-wrap > .flow-arrows:nth-of-type(1) { order: 2; }
-            .flow-diagram-wrap > .flow-box.primary { order: 3; }
-            .flow-diagram-wrap > .flow-algo-link { order: 4; max-width: 300px; }
-            .flow-diagram-wrap > .flow-arrows:nth-of-type(2) { order: 5; }
-            .flow-diagram-wrap > .flow-box:last-of-type { order: 6; }
-
-            .flow-algo-link {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .flow-algo-link-line {
-                width: 1px;
-                height: 16px;
-                border-left: 2px solid var(--border);
+            /* Show the mobile-only vertical flow */
+            .flow-mobile {
+                display: flex !important;
             }
 
             .form-row {
@@ -2446,6 +2413,113 @@
         .profiler-cta-btn:hover {
             opacity: 0.9;
             transform: translateY(-2px);
+        }
+
+        /* ========================================
+           MOBILE VERTICAL FLOW (hidden on desktop)
+           ======================================== */
+        .flow-mobile {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+
+        .flow-mobile-box {
+            background: var(--bg-deep);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--card-radius);
+            padding: 24px;
+            text-align: center;
+            width: 100%;
+            max-width: 280px;
+        }
+
+        .flow-mobile-box.primary {
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        .flow-mobile-box-name {
+            font-family: var(--font-display);
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .flow-mobile-box-sub {
+            font-size: 12px;
+            color: var(--silver);
+        }
+
+        .flow-mobile-box-icon {
+            margin-bottom: 8px;
+        }
+
+        .flow-mobile-box-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--silver);
+        }
+
+        .flow-mobile-box.primary .flow-mobile-box-icon svg {
+            fill: var(--accent);
+        }
+
+        .flow-mobile-arrow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px 0;
+            gap: 2px;
+        }
+
+        .flow-mobile-arrow-line {
+            width: 2px;
+            height: 20px;
+            background: var(--border);
+        }
+
+        .flow-mobile-arrow-label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--silver);
+        }
+
+        .flow-mobile-arrow-label.deposit { color: var(--accent); }
+        .flow-mobile-arrow-label.withdraw { color: var(--accent-secondary); }
+
+        .flow-mobile-algo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+        }
+
+        .flow-mobile-algo-line {
+            width: 24px;
+            height: 2px;
+            background: var(--border);
+        }
+
+        .flow-mobile-algo-label {
+            font-size: 10px;
+            color: var(--silver);
+            white-space: nowrap;
+        }
+
+        .flow-mobile-algo-box {
+            background: var(--bg-deep);
+            border: 1px solid var(--accent);
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-family: var(--font-display);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent);
+            white-space: nowrap;
         }
 
         /* Animation initial states removed — GSAP from() handles them inline */
@@ -3045,6 +3119,38 @@
                         <div class="flow-algo-link-line"></div>
                         <div class="flow-algo-label">Data & Signals Only</div>
                         <div class="flow-algo-box">ITA ALGO System</div>
+                    </div>
+                </div>
+
+                <!-- Mobile-only vertical flow diagram -->
+                <div class="flow-mobile">
+                    <div class="flow-mobile-box">
+                        <div class="flow-mobile-box-icon"><svg viewBox="0 0 24 24"><path d="M4 10h3v7H4zm6.5 0h3v7h-3zM2 19h20v3H2zm15-9h3v7h-3zm-5-9L2 6v2h20V6z"/></svg></div>
+                        <div class="flow-mobile-box-name">Your Bank</div>
+                    </div>
+                    <div class="flow-mobile-arrow">
+                        <div class="flow-mobile-arrow-label deposit">&darr; Deposit</div>
+                        <div class="flow-mobile-arrow-line"></div>
+                        <div class="flow-mobile-arrow-label withdraw">&uarr; Withdraw</div>
+                    </div>
+                    <div class="flow-mobile-box primary">
+                        <div class="flow-mobile-box-icon"><svg viewBox="0 0 24 24"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg></div>
+                        <div class="flow-mobile-box-name">Broker Account</div>
+                        <div class="flow-mobile-box-sub">(In Your Name)</div>
+                    </div>
+                    <div class="flow-mobile-algo">
+                        <div class="flow-mobile-algo-line"></div>
+                        <div class="flow-mobile-algo-label">Data & Signals</div>
+                        <div class="flow-mobile-algo-box">ITA ALGO</div>
+                    </div>
+                    <div class="flow-mobile-arrow">
+                        <div class="flow-mobile-arrow-label">&darr; Execution</div>
+                        <div class="flow-mobile-arrow-line"></div>
+                    </div>
+                    <div class="flow-mobile-box">
+                        <div class="flow-mobile-box-icon"><svg viewBox="0 0 24 24"><path d="M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z"/></svg></div>
+                        <div class="flow-mobile-box-name">Market Profits & Losses</div>
+                        <div class="flow-mobile-box-sub">(Gold Trades)</div>
                     </div>
                 </div>
 
