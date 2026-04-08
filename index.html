@@ -2523,6 +2523,41 @@
             white-space: nowrap;
         }
 
+        /* ========================================
+           ANALOGY CAPSULES
+           ======================================== */
+        .analogy-capsule {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            background: rgba(0, 71, 255, 0.04);
+            border: 1px solid rgba(0, 71, 255, 0.12);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 12px 12px 0;
+            padding: 18px 22px;
+            margin-top: 32px;
+        }
+        .analogy-capsule-icon {
+            font-size: 22px;
+            flex-shrink: 0;
+            line-height: 1;
+            margin-top: 1px;
+        }
+        .analogy-capsule-label {
+            font-family: var(--font-display);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+        .analogy-capsule-text {
+            font-size: 14px;
+            color: var(--silver);
+            line-height: 1.6;
+        }
+
         /* Animation initial states removed — GSAP from() handles them inline */
 
         /* ========================================
@@ -2947,6 +2982,14 @@
                 </div>
             </div>
 
+            <div class="analogy-capsule anim-fade-up">
+                <div class="analogy-capsule-icon">&#128161;</div>
+                <div>
+                    <div class="analogy-capsule-label">Real-Life Analogy</div>
+                    <div class="analogy-capsule-text">Think of ITA ALGO like an autopilot on a commercial flight. The pilot (you) decides the destination and altitude (risk level), but the system handles turbulence, navigation adjustments, and landing &mdash; faster and more precisely than any human could react.</div>
+                </div>
+            </div>
+
             <div style="font-size:11px;color:var(--silver);opacity:0.5;margin-top:24px;text-align:center;">Past performance is not indicative of future results. Trading involves risk. Capital is at risk.</div>
         </div>
     </section>
@@ -2997,6 +3040,14 @@
                     <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:6px;">Your Net Return (NET)</div>
                     <div style="font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--positive);">~24.57%</div>
                     <div style="font-size:11px;color:var(--silver);margin-top:4px;">Your pure profit (50/50 split, accounts under $100K)</div>
+                </div>
+            </div>
+
+            <div class="analogy-capsule anim-fade-up">
+                <div class="analogy-capsule-icon">&#128161;</div>
+                <div>
+                    <div class="analogy-capsule-label">Real-Life Analogy</div>
+                    <div class="analogy-capsule-text">BRUT vs NET is like your salary before and after taxes. The gross (BRUT) is the total the algorithm generated, but what lands in your pocket (NET) is after our performance fee. The difference? That&rsquo;s our cut &mdash; and we only earn it when you do.</div>
                 </div>
             </div>
 
@@ -3156,6 +3207,14 @@
                 </div>
 
                 <div class="flow-note">Note: ITA ALGO does not hold client funds. All deposits and withdrawals are processed directly between you and your regulated broker.</div>
+
+                <div class="analogy-capsule anim-fade-up">
+                    <div class="analogy-capsule-icon">&#128161;</div>
+                    <div>
+                        <div class="analogy-capsule-label">Real-Life Analogy</div>
+                        <div class="analogy-capsule-text">It works like hiring a property manager for your rental apartment. You own the property (your broker account), and the manager (ITA ALGO) handles day-to-day decisions &mdash; but they never hold the keys to your bank vault. You can fire them anytime.</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -3346,6 +3405,14 @@
                 </div>
 
                 <div class="chart-diff-callout" id="chartDiffCallout"></div>
+
+                <div class="analogy-capsule" style="margin-top:24px;">
+                    <div class="analogy-capsule-icon">&#128161;</div>
+                    <div>
+                        <div class="analogy-capsule-label">Real-Life Analogy</div>
+                        <div class="analogy-capsule-text">Compounding is like a snowball rolling downhill &mdash; it picks up more snow with every turn. Withdrawing monthly is like scooping snow off as it rolls: you get snow in hand, but the ball never grows as large. Both are valid strategies depending on your goals.</div>
+                    </div>
+                </div>
             </div>
 
             <!-- ============================
