@@ -4159,6 +4159,21 @@
             if (mobileMenu) mobileMenu.classList.remove('open');
         }
 
+        // Smooth scroll navigation via Lenis
+        document.querySelectorAll('.nav-links a, .nav-cta, .mobile-menu a, .hero-btns a, .profiler-cta-btn').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        lenis.scrollTo(target, { offset: -70, duration: 1.5 });
+                        closeMobileMenu();
+                    }
+                }
+            });
+        });
+
         // Active nav link tracking
         const navSections = document.querySelectorAll('section[id]');
         window.addEventListener('scroll', () => {
