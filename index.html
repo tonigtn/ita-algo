@@ -555,7 +555,7 @@
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 24px;
             text-align: center;
         }
@@ -3248,7 +3248,27 @@
                 <div class="stat-item anim-fade-up">
                     <div class="stat-value" data-count="1.937" data-suffix="" data-decimals="3">0</div>
                     <div class="stat-label">Win/Loss Ratio</div>
-                    <div class="stat-explainer">For every $1 lost, $1.94 was gained. Above 1.5 is strong.</div>
+                    <div class="stat-explainer">For every $1 lost, $1.94 was gained. Like a casino where you are the house.</div>
+                </div>
+                <div class="stat-item anim-fade-up">
+                    <div class="stat-value" data-count="4.37" data-suffix="&times;" data-decimals="2">0</div>
+                    <div class="stat-label">Recovery Factor</div>
+                    <div class="stat-explainer">Net profit is 4.37&times; the max loss. Like a business earning &euro;437K while its worst quarter cost &euro;100K.</div>
+                </div>
+                <div class="stat-item anim-fade-up">
+                    <div class="stat-value" data-count="45.88" data-suffix="%" data-decimals="2">0%</div>
+                    <div class="stat-label">Win Rate</div>
+                    <div class="stat-explainer">Wins less than half &mdash; but wins bigger. Like a boxer who only needs 4 knockouts to win 10 rounds.</div>
+                </div>
+                <div class="stat-item anim-fade-up">
+                    <div class="stat-value" data-count="96.27" data-suffix="%" data-decimals="2">0%</div>
+                    <div class="stat-label">Growth Consistency</div>
+                    <div class="stat-explainer">96.27% linear correlation &mdash; growth is steady and predictable, not a lucky streak.</div>
+                </div>
+                <div class="stat-item anim-fade-up">
+                    <div class="stat-value">1h 8m</div>
+                    <div class="stat-label">Avg Trade Duration</div>
+                    <div class="stat-explainer">Precise, calculated windows of exposure &mdash; in and out when the math says so.</div>
                 </div>
             </div>
             <div class="stats-footnote anim-fade-up">Based on a 90-day simulation (Jan 1 &mdash; Mar 27, 2026) starting with $10,000. A &ldquo;simulation&rdquo; means we ran the algorithm on real past price data &mdash; like a dress rehearsal before the real show.</div>
@@ -3450,14 +3470,57 @@
          ============================ -->
     <section id="hedge-fund">
         <div class="container">
-            <div class="hedge-fund-banner anim-fade-up">
-                <div class="hedge-fund-content">
-                    <div class="section-label">The Hedge Fund Approach</div>
-                    <h3 class="hedge-fund-title">Think Like a Hedge Fund</h3>
-                    <p class="hedge-fund-text">Professional funds use algorithmic systems to remove emotion and enforce discipline. They don&rsquo;t guess &mdash; they follow tested rules, manage risk mechanically, and operate 24/5 without fatigue. ITA ALGO brings this institutional-grade approach to qualified investors &mdash; with full transparency and your capital always under your control.</p>
-                    <p class="hedge-fund-exclusive">We select our investors as much as they select us.</p>
+            <div class="section-header anim-fade-up">
+                <div class="section-label">04 &mdash; The Hedge Fund Perspective</div>
+                <h2 class="section-title">Before You Invest, Think Like a Fund Manager</h2>
+                <p class="section-subtitle" style="max-width:700px;">Most retail investors lose money &mdash; not because markets are unfair, but because they operate without a system, without discipline, and without the right mental framework.</p>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;" class="calc-layout">
+                <div class="works-card anim-fade-up" style="display:block;padding:28px;">
+                    <div style="font-size:11px;font-weight:700;color:var(--accent);opacity:0.5;margin-bottom:8px;">01</div>
+                    <h4 style="font-size:17px;font-weight:700;color:var(--white);margin-bottom:10px;">Process Over Outcome</h4>
+                    <p style="font-size:13px;color:var(--silver);line-height:1.6;margin-bottom:12px;">Professional funds never judge a trade by whether it won or lost. They judge it by whether the <em>process</em> was followed correctly.</p>
+                    <div style="font-size:12px;color:var(--accent);opacity:0.7;">ITA ALGO enforces this automatically &mdash; identical rules on every single trade.</div>
+                </div>
+                <div class="works-card anim-fade-up" style="display:block;padding:28px;">
+                    <div style="font-size:11px;font-weight:700;color:var(--accent);opacity:0.5;margin-bottom:8px;">02</div>
+                    <h4 style="font-size:17px;font-weight:700;color:var(--white);margin-bottom:10px;">&ldquo;Miles Per Gallon&rdquo; Thinking</h4>
+                    <p style="font-size:13px;color:var(--silver);line-height:1.6;margin-bottom:12px;">Fund managers ask &ldquo;how much return per unit of risk?&rdquo; &mdash; not just &ldquo;how much can I make?&rdquo; Most hedge funds target a Sharpe of 1&ndash;3. World-class reach 5&ndash;10.</p>
+                    <div style="font-size:12px;color:var(--accent);opacity:0.7;">ITA ALGO achieved <strong>20.57</strong> in Q1 2026.</div>
+                </div>
+                <div class="works-card anim-fade-up" style="display:block;padding:28px;">
+                    <div style="font-size:11px;font-weight:700;color:var(--accent);opacity:0.5;margin-bottom:8px;">03</div>
+                    <h4 style="font-size:17px;font-weight:700;color:var(--white);margin-bottom:10px;">Drawdowns Are Weather, Not Disasters</h4>
+                    <p style="font-size:13px;color:var(--silver);line-height:1.6;margin-bottom:12px;">A drawdown of 8.46% is not a red flag &mdash; it is expected and planned for. Panic-selling during a drawdown is like selling your house because it rained this week.</p>
+                    <div style="font-size:12px;color:var(--accent);opacity:0.7;">The account still ended +49.13% above starting capital.</div>
+                </div>
+                <div class="works-card anim-fade-up" style="display:block;padding:28px;">
+                    <div style="font-size:11px;font-weight:700;color:var(--accent);opacity:0.5;margin-bottom:8px;">04</div>
+                    <h4 style="font-size:17px;font-weight:700;color:var(--white);margin-bottom:10px;">The Compounding Snowball</h4>
+                    <p style="font-size:13px;color:var(--silver);line-height:1.6;margin-bottom:12px;">A 49% return reinvested doesn&rsquo;t just add &mdash; it <em>multiplies</em>. The longer you leave the snowball rolling, the faster it grows exponentially.</p>
+                    <div style="font-size:12px;color:var(--accent);opacity:0.7;">See the calculator below &mdash; the difference becomes dramatic within 6 months.</div>
+                </div>
+                <div class="works-card anim-fade-up" style="display:block;padding:28px;">
+                    <div style="font-size:11px;font-weight:700;color:var(--accent);opacity:0.5;margin-bottom:8px;">05</div>
+                    <h4 style="font-size:17px;font-weight:700;color:var(--white);margin-bottom:10px;">Controlled Environment Advantage</h4>
+                    <p style="font-size:13px;color:var(--silver);line-height:1.6;margin-bottom:12px;">Market volatility is precisely when algorithmic systems operating in liquid, rule-bound markets like Gold are at their most powerful.</p>
+                    <div style="font-size:12px;color:var(--accent);opacity:0.7;">While humans freeze and hesitate, ITA ALGO continues executing 24/5.</div>
+                </div>
+                <div class="works-card anim-fade-up" style="display:block;padding:28px;">
+                    <div style="font-size:11px;font-weight:700;color:var(--accent);opacity:0.5;margin-bottom:8px;">06</div>
+                    <h4 style="font-size:17px;font-weight:700;color:var(--white);margin-bottom:10px;">You Are Being Selected</h4>
+                    <p style="font-size:13px;color:var(--silver);line-height:1.6;margin-bottom:12px;">We do not accept every investor. We work with people who understand risk, respect the system, and bring the right mindset.</p>
+                    <div style="font-size:12px;color:var(--accent);opacity:0.7;">The investor profiler is your first step &mdash; not a barrier, a bridge to alignment.</div>
                 </div>
             </div>
+
+            <blockquote style="margin-top:40px;padding:24px 32px;border-left:3px solid var(--accent);background:var(--bg-card);border-radius:0 var(--card-radius) var(--card-radius) 0;font-style:italic;font-size:16px;color:var(--platinum);line-height:1.7;" class="anim-fade-up">
+                &ldquo;The goal is not to predict the market &mdash; it is to systematically exploit its inefficiencies, every single day, without exception.&rdquo;
+                <cite style="display:block;margin-top:10px;font-size:12px;font-style:normal;color:var(--accent);">&mdash; ITA ALGO System Philosophy</cite>
+            </blockquote>
+
+            <div style="font-size:11px;color:var(--silver);opacity:0.5;margin-top:24px;text-align:center;">All statistical comparisons reference the Q1 2026 simulation. Hedge fund comparisons are for educational framing only. Past performance is not indicative of future results.</div>
         </div>
     </section>
 
