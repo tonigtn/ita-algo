@@ -2529,33 +2529,53 @@
         .analogy-capsule {
             display: flex;
             align-items: flex-start;
-            gap: 14px;
-            background: rgba(0, 71, 255, 0.04);
-            border: 1px solid rgba(0, 71, 255, 0.12);
-            border-left: 3px solid var(--accent);
-            border-radius: 0 12px 12px 0;
-            padding: 18px 22px;
-            margin-top: 32px;
+            gap: 16px;
+            background: linear-gradient(135deg, rgba(0,71,255,0.06) 0%, rgba(6,6,26,0.9) 100%);
+            border: 1px solid rgba(0,71,255,0.15);
+            border-radius: var(--card-radius);
+            padding: 24px 28px;
+            margin: 24px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .analogy-capsule::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent), var(--accent-secondary));
+            border-radius: 3px 0 0 3px;
         }
         .analogy-capsule-icon {
-            font-size: 22px;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--accent-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             flex-shrink: 0;
-            line-height: 1;
-            margin-top: 1px;
+        }
+        .analogy-capsule-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--accent);
         }
         .analogy-capsule-label {
             font-family: var(--font-display);
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
             color: var(--accent);
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
         .analogy-capsule-text {
             font-size: 14px;
-            color: var(--silver);
-            line-height: 1.6;
+            color: var(--platinum);
+            line-height: 1.7;
         }
 
         /* Animation initial states removed — GSAP from() handles them inline */
@@ -2955,6 +2975,14 @@
                 </div>
             </div>
 
+            <div class="analogy-capsule anim-fade-up">
+                <div class="analogy-capsule-icon"><svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg></div>
+                <div>
+                    <div class="analogy-capsule-label">Real-Life Analogy</div>
+                    <div class="analogy-capsule-text">Think of ITA ALGO like an autopilot on a commercial flight. The pilot (you) decides the destination and altitude (risk level), but the system handles turbulence, navigation adjustments, and landing &mdash; faster and more precisely than any human could react.</div>
+                </div>
+            </div>
+
             <div class="works-stats anim-fade-up">
                 <div class="works-stat">
                     <div class="works-stat-label">Latency</div>
@@ -2979,14 +3007,6 @@
                 <div style="flex:1;min-width:200px;background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:12px;padding:20px;text-align:center;">
                     <div style="font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--white);margin-bottom:6px;">Millisecond Execution</div>
                     <div style="font-size:13px;color:var(--silver);line-height:1.5;">While a human blinks, the algorithm has already placed the trade.</div>
-                </div>
-            </div>
-
-            <div class="analogy-capsule anim-fade-up">
-                <div class="analogy-capsule-icon">&#128161;</div>
-                <div>
-                    <div class="analogy-capsule-label">Real-Life Analogy</div>
-                    <div class="analogy-capsule-text">Think of ITA ALGO like an autopilot on a commercial flight. The pilot (you) decides the destination and altitude (risk level), but the system handles turbulence, navigation adjustments, and landing &mdash; faster and more precisely than any human could react.</div>
                 </div>
             </div>
 
@@ -3044,7 +3064,7 @@
             </div>
 
             <div class="analogy-capsule anim-fade-up">
-                <div class="analogy-capsule-icon">&#128161;</div>
+                <div class="analogy-capsule-icon"><svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg></div>
                 <div>
                     <div class="analogy-capsule-label">Real-Life Analogy</div>
                     <div class="analogy-capsule-text">BRUT vs NET is like your salary before and after taxes. The gross (BRUT) is the total the algorithm generated, but what lands in your pocket (NET) is after our performance fee. The difference? That&rsquo;s our cut &mdash; and we only earn it when you do.</div>
@@ -3119,6 +3139,14 @@
                     </div>
                     <div class="step-title">Auto Trading</div>
                     <div class="step-desc">Sit back. The algorithm trades gold 24 hours a day, 5 days a week, on autopilot.</div>
+                </div>
+            </div>
+
+            <div class="analogy-capsule anim-fade-up">
+                <div class="analogy-capsule-icon"><svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg></div>
+                <div>
+                    <div class="analogy-capsule-label">Real-Life Analogy</div>
+                    <div class="analogy-capsule-text">It works like hiring a property manager for your rental apartment. You own the property (your broker account), and the manager (ITA ALGO) handles day-to-day decisions &mdash; but they never hold the keys to your bank vault. You can fire them anytime.</div>
                 </div>
             </div>
 
@@ -3208,13 +3236,6 @@
 
                 <div class="flow-note">Note: ITA ALGO does not hold client funds. All deposits and withdrawals are processed directly between you and your regulated broker.</div>
 
-                <div class="analogy-capsule anim-fade-up">
-                    <div class="analogy-capsule-icon">&#128161;</div>
-                    <div>
-                        <div class="analogy-capsule-label">Real-Life Analogy</div>
-                        <div class="analogy-capsule-text">It works like hiring a property manager for your rental apartment. You own the property (your broker account), and the manager (ITA ALGO) handles day-to-day decisions &mdash; but they never hold the keys to your bank vault. You can fire them anytime.</div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -3407,7 +3428,7 @@
                 <div class="chart-diff-callout" id="chartDiffCallout"></div>
 
                 <div class="analogy-capsule" style="margin-top:24px;">
-                    <div class="analogy-capsule-icon">&#128161;</div>
+                    <div class="analogy-capsule-icon"><svg viewBox="0 0 24 24"><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z"/></svg></div>
                     <div>
                         <div class="analogy-capsule-label">Real-Life Analogy</div>
                         <div class="analogy-capsule-text">Compounding is like a snowball rolling downhill &mdash; it picks up more snow with every turn. Withdrawing monthly is like scooping snow off as it rolls: you get snow in hand, but the ball never grows as large. Both are valid strategies depending on your goals.</div>
