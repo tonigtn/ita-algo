@@ -247,25 +247,55 @@
         }
 
         /* ========================================
-           NAVBAR
+           RISK DISCLOSURE BAR
            ======================================== */
-        .navbar {
+        .risk-bar {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            height: 64px;
+            z-index: 1001;
+            background: rgba(255, 51, 85, 0.08);
+            border-bottom: 1px solid rgba(255, 51, 85, 0.2);
+            padding: 8px 20px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 0 40px;
+            gap: 10px;
+            font-size: 11px;
+            color: var(--silver);
+            backdrop-filter: blur(8px);
+            transition: transform 0.4s ease, opacity 0.4s ease;
+        }
+        .risk-bar.dimmed { transform: translateY(-100%); opacity: 0; pointer-events: none; }
+        .risk-bar-icon { color: var(--danger); font-size: 14px; flex-shrink: 0; }
+        .risk-bar-text { flex: 1; line-height: 1.4; }
+        .risk-bar-close {
+            background: none; border: none; color: var(--silver); font-size: 18px;
+            cursor: pointer; padding: 0 4px; flex-shrink: 0; opacity: 0.6;
+        }
+        .risk-bar-close:hover { opacity: 1; }
+
+        /* ========================================
+           NAVBAR
+           ======================================== */
+        .navbar {
+            position: fixed;
+            top: 34px;
+            left: 0;
+            right: 0;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
             z-index: 1000;
-            background: rgba(10, 14, 23, 0.85);
+            background: rgba(1, 1, 8, 0.85);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
-            transform: translateY(-100%);
+            transform: translateY(-120%);
             transition: transform 0.4s ease;
         }
+        .risk-bar.dimmed ~ .navbar { top: 0; }
 
         .navbar.visible {
             transform: translateY(0);
@@ -273,7 +303,7 @@
 
         .nav-logo {
             font-family: var(--font-display);
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 700;
             color: var(--white);
         }
@@ -285,6 +315,138 @@
             background-clip: text;
         }
 
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            list-style: none;
+        }
+        .nav-links a {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--silver);
+            transition: color 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--white); }
+        .nav-cta {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 8px 20px;
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            color: var(--accent);
+            transition: all 0.3s;
+        }
+        .nav-cta:hover { background: var(--accent); color: var(--white); }
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--white);
+            border-radius: 1px;
+            transition: all 0.3s;
+        }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1002;
+            background: rgba(1, 1, 8, 0.97);
+            backdrop-filter: blur(16px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+        }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--silver);
+            transition: color 0.2s;
+        }
+        .mobile-menu a:hover { color: var(--white); }
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 28px;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .nav-links, .nav-cta { display: none; }
+            .hamburger { display: flex; }
+        }
+
+        /* Hero additions */
+        .hero-badge {
+            font-family: var(--font-display);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            opacity: 0.7;
+            margin-bottom: 20px;
+        }
+        .hero-desc {
+            font-size: 17px;
+            color: var(--silver);
+            line-height: 1.7;
+            max-width: 640px;
+            margin: 20px auto 0;
+        }
+        .hero-btns {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            background: var(--accent);
+            color: var(--white);
+            border-radius: 10px;
+            font-family: var(--font-body);
+            font-size: 15px;
+            font-weight: 700;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-glow); }
+        .btn-outline-hero {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--platinum);
+            border-radius: 10px;
+            font-family: var(--font-body);
+            font-size: 15px;
+            font-weight: 600;
+            transition: border-color 0.3s, color 0.3s;
+        }
+        .btn-outline-hero:hover { border-color: var(--accent); color: var(--white); }
 
         /* ========================================
            HERO
@@ -2869,11 +3031,41 @@
     <div class="scroll-progress" id="scrollProgress"></div>
 
     <!-- ============================
+         RISK DISCLOSURE BAR
+         ============================ -->
+    <div class="risk-bar" id="riskBar">
+        <span class="risk-bar-icon">&#9888;</span>
+        <span class="risk-bar-text">Trading involves substantial risk of loss. Past performance is not indicative of future results. Only invest capital you can afford to lose. This is not financial advice.</span>
+        <button class="risk-bar-close" onclick="document.getElementById('riskBar').classList.add('dimmed')" aria-label="Dismiss">&times;</button>
+    </div>
+
+    <!-- ============================
          NAVBAR
          ============================ -->
     <nav class="navbar" id="navbar">
         <a href="#hero" class="nav-logo">ITA <span>ALGO</span></a>
+        <ul class="nav-links">
+            <li><a href="#how-it-works">Algorithm</a></li>
+            <li><a href="#stats">Statistics</a></li>
+            <li><a href="#onboarding">Process</a></li>
+            <li><a href="#hedge-fund">Mindset</a></li>
+            <li><a href="#profiles">Calculator</a></li>
+            <li><a href="#faq">FAQ</a></li>
+        </ul>
+        <a href="#faq" class="nav-cta">Begin Assessment</a>
+        <button class="hamburger" id="menuToggle" aria-label="Menu"><span></span><span></span><span></span></button>
     </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="menuClose">&times;</button>
+        <a href="#how-it-works" onclick="closeMobileMenu()">Algorithm</a>
+        <a href="#stats" onclick="closeMobileMenu()">Statistics</a>
+        <a href="#onboarding" onclick="closeMobileMenu()">Process</a>
+        <a href="#hedge-fund" onclick="closeMobileMenu()">Mindset</a>
+        <a href="#profiles" onclick="closeMobileMenu()">Calculator</a>
+        <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
+    </div>
 
     <!-- ============================
          HERO
@@ -2885,10 +3077,16 @@
         <div class="hero-corner tl"></div>
         <div class="hero-corner br"></div>
         <div class="hero-content">
+            <div class="hero-badge">CONFIDENTIAL // INVESTOR BRIEF // Q1 2026</div>
             <div class="hero-logo">
                 <span class="ita">ITA </span><span class="algo">ALGO</span>
             </div>
-            <div class="hero-tagline">Systematic &middot; Fast &middot; Disciplined</div>
+            <div class="hero-tagline">Systematic &middot; Disciplined &middot; Always On</div>
+            <p class="hero-desc">A proprietary algorithmic trading system engineered to trade Gold (XAU/USD) with institutional-grade precision &mdash; removing human error and emotion from every decision.</p>
+            <div class="hero-btns">
+                <a href="#how-it-works" class="btn-primary">Discover the Algorithm &darr;</a>
+                <a href="#profiles" class="btn-outline-hero">Run My Projection</a>
+            </div>
         </div>
     </section>
 
@@ -3740,6 +3938,28 @@
             onLeaveBack: () => navbar.classList.remove('visible')
         });
 
+        // Mobile menu
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuClose = document.getElementById('menuClose');
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener('click', () => mobileMenu.classList.add('open'));
+            menuClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+        }
+        function closeMobileMenu() {
+            if (mobileMenu) mobileMenu.classList.remove('open');
+        }
+
+        // Active nav link tracking
+        const navSections = document.querySelectorAll('section[id]');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            navSections.forEach(s => { if (window.scrollY >= s.offsetTop - 150) current = s.id; });
+            document.querySelectorAll('.nav-links a').forEach(a => {
+                a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+            });
+        }, { passive: true });
+
         /* ========================================
            TEXT REVEAL UTILITY
            ======================================== */
@@ -3772,6 +3992,8 @@
             heroTl.from('.hero-logo .ita', { opacity: 0, y: 40, filter: 'blur(10px)', duration: 0.8, ease: 'power3.out' }, '-=0.5');
             heroTl.from('.hero-logo .algo', { opacity: 0, y: 40, filter: 'blur(10px)', duration: 0.8, ease: 'power3.out' }, '-=0.5');
             heroTl.from('.hero-tagline', { opacity: 0, y: 20, letterSpacing: '14px', duration: 0.8, ease: 'power3.out' }, '-=0.3');
+            heroTl.from('.hero-desc', { opacity: 0, y: 15, duration: 0.7, ease: 'power3.out' }, '-=0.2');
+            heroTl.from('.hero-btns', { opacity: 0, y: 15, duration: 0.6, ease: 'power3.out' }, '-=0.2');
             heroTl.from('.hero-corner', { opacity: 0, scale: 0.5, duration: 0.6, stagger: 0.15, ease: 'back.out(1.7)' }, '-=0.4');
 
             // Perpetual floating corners
