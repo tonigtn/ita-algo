@@ -2689,6 +2689,26 @@
         }
 
         /* ========================================
+           MINDSET GRID
+           ======================================== */
+        .mindset-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        @media (max-width: 1024px) {
+            .mindset-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+        @media (max-width: 768px) {
+            .mindset-grid {
+                grid-template-columns: 1fr !important;
+                max-width: 480px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        /* ========================================
            BRUT vs NET ROW
            ======================================== */
         .brut-net-row {
@@ -3583,7 +3603,7 @@
                 <p class="section-subtitle" style="max-width:700px;">Most retail investors lose money &mdash; not because markets are unfair, but because they operate without a system, without discipline, and without the right mental framework.</p>
             </div>
 
-            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch;" class="calc-layout">
+            <div style="display:grid;gap:20px;align-items:stretch;" class="mindset-grid">
                 <div class="works-card anim-fade-up" style="display:flex;flex-direction:column;padding:28px;">
                     <div style="font-size:11px;font-weight:700;color:var(--accent);opacity:0.5;margin-bottom:8px;">01</div>
                     <h4 style="font-size:17px;font-weight:700;color:var(--white);margin-bottom:10px;">Process Over Outcome</h4>
