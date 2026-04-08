@@ -4543,6 +4543,44 @@
             scrollTrigger: { trigger: '.hedge-fund-banner', start: 'top 80%', toggleActions: 'play none none none' }
         });
 
+        // Mindset cards — sequential highlight cycle
+        (function() {
+            const mindsetCards = document.querySelectorAll('.mindset-grid .works-card');
+            if (!mindsetCards.length) return;
+            let activeIdx = -1;
+            let cycleInterval;
+
+            function highlightNext() {
+                // Remove previous highlight
+                if (activeIdx >= 0 && mindsetCards[activeIdx]) {
+                    gsap.to(mindsetCards[activeIdx], {
+                        borderColor: 'rgba(18,18,58,1)',
+                        boxShadow: '0 0 0px transparent',
+                        duration: 0.5,
+                        ease: 'power2.out'
+                    });
+                }
+                activeIdx = (activeIdx + 1) % mindsetCards.length;
+                // Highlight current
+                gsap.to(mindsetCards[activeIdx], {
+                    borderColor: 'rgba(0,71,255,0.5)',
+                    boxShadow: '0 0 25px rgba(0,71,255,0.1), inset 0 0 20px rgba(0,71,255,0.03)',
+                    duration: 0.5,
+                    ease: 'power2.out'
+                });
+            }
+
+            ScrollTrigger.create({
+                trigger: '.mindset-grid',
+                start: 'top 75%',
+                once: true,
+                onEnter: () => {
+                    highlightNext();
+                    cycleInterval = setInterval(highlightNext, 2500);
+                }
+            });
+        })();
+
         // Profiler CTA
         gsap.from('.profiler-cta', {
             opacity: 0, y: 30, duration: 0.8, ease: 'power3.out',
