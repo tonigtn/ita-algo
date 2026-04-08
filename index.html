@@ -3465,7 +3465,7 @@
                         <div style="background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--card-radius);padding:20px;">
                             <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
                                 <span style="font-size:14px;color:var(--platinum);">Your Profit Share</span>
-                                <span style="font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--accent);" id="calcSplitYou">50%</span>
+                                <span style="font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--positive);display:inline-block;transform-origin:center;" id="calcSplitYou">50%</span>
                             </div>
                             <div style="display:flex;justify-content:space-between;padding:8px 0;">
                                 <span style="font-size:14px;color:var(--platinum);">Firm Performance Fee</span>
@@ -4283,10 +4283,10 @@
         const calcCapitalDisplay = document.getElementById('calcCapitalDisplay');
 
         function getSplitPct(capital) {
-            if (capital >= 1000000) return { you: 70, algo: 30 };
-            if (capital >= 500000) return { you: 65, algo: 35 };
-            if (capital >= 100000) return { you: 60, algo: 40 };
-            return { you: 50, algo: 50 };
+            if (capital >= 1000000) return { you: 70, algo: 30, tier: 'Institutional tier — best rate' };
+            if (capital >= 500000) return { you: 65, algo: 35, tier: 'Premium tier ($500K+)' };
+            if (capital >= 100000) return { you: 60, algo: 40, tier: 'Growth tier ($100K+)' };
+            return { you: 50, algo: 50, tier: 'Starter tier. Upgrades at $100K (60/40) and $1M (70/30).' };
         }
 
         function setRisk(val) {
@@ -4310,19 +4310,54 @@
             calcUpdate();
         });
 
-        // Slider thumb styling
-        calcCapital.style.setProperty('--val', ((10000 - 5000) / (2000000 - 5000)) * 100 + '%');
+        // Track previous split tier for animation
+        let prevSplitYou = 50;
 
         function calcUpdate() {
             const capital = parseInt(calcCapital.value) || 10000;
             const profile = calcProfiles[currentRisk];
             const split = getSplitPct(capital);
-            const totalPoints = 7; // Start, Mid M1, Month 1, Mid M2, Month 2, Mid M3, Month 3
+            const totalPoints = 7;
             const labels = ['Start', 'Mid M1', 'Month 1', 'Mid M2', 'Month 2', 'Mid M3', 'Month 3'];
 
+            const splitYouEl = document.getElementById('calcSplitYou');
+            const splitAlgoEl = document.getElementById('calcSplitAlgo');
+            const splitTierEl = document.getElementById('calcSplitTier');
+
+            // Detect tier change → animate
+            if (split.you !== prevSplitYou) {
+                prevSplitYou = split.you;
+
+                // Color flash: green pulse on "Your Profit Share" value
+                gsap.fromTo(splitYouEl, {
+                    color: '#ffffff',
+                    scale: 1.3,
+                    textShadow: '0 0 20px rgba(0,232,123,0.6)'
+                }, {
+                    color: '#00E87B',
+                    scale: 1,
+                    textShadow: '0 0 0px transparent',
+                    duration: 0.8,
+                    ease: 'power2.out'
+                });
+
+                // Subtle shake on the whole split card
+                const splitCard = splitYouEl.closest('[style*="border-radius"]');
+                if (splitCard) {
+                    gsap.fromTo(splitCard, {
+                        boxShadow: '0 0 25px rgba(0,232,123,0.2), inset 0 0 15px rgba(0,232,123,0.05)'
+                    }, {
+                        boxShadow: '0 0 0px transparent, inset 0 0 0px transparent',
+                        duration: 1.2,
+                        ease: 'power2.out'
+                    });
+                }
+            }
+
             // Update split display
-            document.getElementById('calcSplitYou').textContent = split.you + '%';
-            document.getElementById('calcSplitAlgo').textContent = split.algo + '%';
+            splitYouEl.textContent = split.you + '%';
+            splitAlgoEl.textContent = split.algo + '%';
+            splitTierEl.textContent = split.tier;
             document.getElementById('calcFeeLabel').textContent = split.algo + '%';
 
             // Build BOTH lines with realistic dips (deterministic noise)
