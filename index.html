@@ -2685,6 +2685,18 @@
         }
 
         /* ========================================
+           ALGO TWO-COL (Why Gold + Specs)
+           ======================================== */
+        .algo-two-col {
+            grid-template-columns: 1fr 1fr;
+        }
+        @media (max-width: 768px) {
+            .algo-two-col {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        /* ========================================
            PHASE DIVIDERS
            ======================================== */
         .phase-divider {
@@ -3197,7 +3209,7 @@
             </div>
 
             <!-- WHY GOLD + SYSTEM SPECS -->
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:48px;" class="anim-fade-up calc-layout">
+            <div style="display:grid;gap:32px;margin-bottom:48px;" class="anim-fade-up algo-two-col">
 
                 <!-- Why Gold -->
                 <div>
