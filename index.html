@@ -2739,11 +2739,13 @@
         }
         .brut-net-arrow {
             flex-shrink: 0;
+            font-family: var(--font-display);
+            font-size: 24px;
+            color: var(--silver);
         }
         @media (min-width: 769px) {
-            .brut-net-arrow::after { content: '\2192'; }
             .brut-net-arrow { font-size: 0; }
-            .brut-net-arrow::after { font-family: var(--font-display); font-size: 24px; color: var(--silver); }
+            .brut-net-arrow::after { content: '\2192'; font-family: var(--font-display); font-size: 24px; color: var(--silver); }
         }
         @media (max-width: 768px) {
             .brut-net-row {
@@ -3419,7 +3421,7 @@
                     <div style="font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--white);">49.13%</div>
                     <div style="font-size:11px;color:var(--silver);margin-top:4px;">Includes our profit share + your profit</div>
                 </div>
-                <div class="brut-net-arrow" style="font-family:var(--font-display);font-size:24px;color:var(--silver);">&darr;</div>
+                <div class="brut-net-arrow">&darr;</div>
                 <div style="background:var(--bg-card);border:2px solid var(--accent);border-radius:12px;padding:20px 28px;text-align:center;flex:1;min-width:220px;box-shadow:0 0 30px var(--accent-glow);">
                     <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:6px;">Your Net Return (NET)</div>
                     <div style="font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--positive);">~24.57%</div>
