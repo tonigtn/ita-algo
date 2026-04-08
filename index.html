@@ -2686,6 +2686,41 @@
         }
 
         /* ========================================
+           PHASE DIVIDERS
+           ======================================== */
+        .phase-divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 32px 24px;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+        .phase-label {
+            font-family: var(--font-display);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--accent);
+            white-space: nowrap;
+            padding: 6px 16px;
+            border: 1px solid var(--accent);
+            border-radius: 20px;
+        }
+        .phase-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+        }
+        .phase-title-text {
+            font-family: var(--font-display);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--silver);
+            white-space: nowrap;
+        }
+
+        /* ========================================
            ANALOGY CAPSULES
            ======================================== */
         .analogy-capsule {
@@ -3090,6 +3125,13 @@
         </div>
     </section>
 
+    <!-- Phase I Divider -->
+    <div class="phase-divider">
+        <div class="phase-label">PHASE I</div>
+        <div class="phase-line"></div>
+        <div class="phase-title-text">The Algorithm, The Numbers &amp; How It Works</div>
+    </div>
+
     <!-- ============================
          THE ALGORITHM
          ============================ -->
@@ -3464,6 +3506,13 @@
             </div>
         </div>
     </section>
+
+    <!-- Phase II Divider -->
+    <div class="phase-divider">
+        <div class="phase-label">PHASE II</div>
+        <div class="phase-line"></div>
+        <div class="phase-title-text">The Mindset, The Strategy &amp; Your Projection</div>
+    </div>
 
     <!-- ============================
          HEDGE FUND MINDSET
@@ -3853,6 +3902,13 @@
         </div>
     </section>
 
+    <!-- Phase III Divider -->
+    <div class="phase-divider">
+        <div class="phase-label">PHASE III</div>
+        <div class="phase-line"></div>
+        <div class="phase-title-text">Qualification &amp; Onboarding</div>
+    </div>
+
     <!-- ============================
          FAQ
          ============================ -->
@@ -3942,9 +3998,28 @@
 
             <!-- Investor Profiler CTA -->
             <div class="profiler-cta anim-fade-up">
-                <h3 class="profiler-cta-title">Ready to find out if ITA ALGO is right for you?</h3>
-                <p class="profiler-cta-text">Complete our investor profiler &mdash; a quick assessment that helps us understand your goals and risk tolerance.</p>
-                <a href="https://zaljwykp.gensparkspace.com/" target="_blank" rel="noopener" class="profiler-cta-btn">Start Investor Profiler &rarr;</a>
+                <h3 class="profiler-cta-title">Ready to find out your investor profile?</h3>
+                <p class="profiler-cta-text">The qualification process takes ~5 minutes. It educates, it guides, and it determines the right entry point specifically for you.</p>
+
+                <!-- Pre-qualification notice -->
+                <div id="profilerPrequal" style="max-width:560px;margin:0 auto;text-align:left;">
+                    <div style="background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--card-radius);padding:28px;margin-bottom:20px;">
+                        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--danger);margin-bottom:16px;">Pre-Qualification Notice</div>
+                        <p style="font-size:14px;color:var(--silver);line-height:1.7;margin-bottom:16px;">This opportunity is <strong style="color:var(--white);">exclusive</strong> and not intended for everyone. It is designed for individuals who understand that investing requires discipline, risk awareness, and a long-term perspective.</p>
+                        <div style="font-size:12px;color:var(--silver);margin-bottom:16px;">
+                            <div style="font-weight:700;color:var(--danger);margin-bottom:8px;">THIS IS NOT:</div>
+                            <div style="padding:4px 0;">&times; A quick profit opportunity</div>
+                            <div style="padding:4px 0;">&times; A guaranteed return</div>
+                            <div style="padding:4px 0;">&times; A solution to financial problems</div>
+                            <div style="padding:4px 0;">&times; Suitable for money you cannot afford to lose</div>
+                        </div>
+                        <label style="display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--silver);cursor:pointer;margin-bottom:20px;">
+                            <input type="checkbox" id="profilerConsent" onchange="document.getElementById('profilerStartBtn').disabled = !this.checked" style="margin-top:3px;">
+                            <span>I have read and understood the above. I confirm that I approach this assessment with a long-term and disciplined mindset.</span>
+                        </label>
+                        <button id="profilerStartBtn" disabled onclick="window.open('https://zaljwykp.gensparkspace.com/', '_blank')" class="profiler-cta-btn" style="width:100%;opacity:0.5;transition:opacity 0.3s;">Begin Assessment &rarr;</button>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -4936,6 +5011,16 @@
         /* ========================================
            CONTACT FORM
            ======================================== */
+        // Profiler consent checkbox → enable button
+        const profilerConsent = document.getElementById('profilerConsent');
+        const profilerBtn = document.getElementById('profilerStartBtn');
+        if (profilerConsent && profilerBtn) {
+            profilerConsent.addEventListener('change', () => {
+                profilerBtn.disabled = !profilerConsent.checked;
+                profilerBtn.style.opacity = profilerConsent.checked ? '1' : '0.5';
+            });
+        }
+
         document.getElementById('contactForm').addEventListener('submit', (e) => {
             e.preventDefault();
             // No endpoint — just show success message
