@@ -3510,7 +3510,7 @@
                             <div style="background:var(--bg-card);border:2px solid var(--accent);border-radius:var(--card-radius);padding:20px 24px;box-shadow:0 0 30px var(--accent-glow);">
                                 <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--silver);margin-bottom:8px;">3-Month Projected NET Profit</div>
                                 <div style="font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--positive);display:inline-block;transform-origin:left center;" id="calcNetBalance">$0</div>
-                                <div style="font-size:11px;color:var(--silver);margin-top:4px;">After <span id="calcFeeLabel">50%</span> firm fee.</div>
+                                <div style="font-size:11px;color:var(--silver);margin-top:4px;">After <span id="calcFeeLabel" style="display:inline-block;transform-origin:center;font-weight:700;transition:color 0.3s;">50%</span> firm fee.</div>
                             </div>
                             <div style="background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--card-radius);padding:20px 24px;">
                                 <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--silver);margin-bottom:8px;">Projected Gross Return</div>
@@ -4353,12 +4353,12 @@
                     });
                 }
 
-                // Same animation on the NET Profit card
-                const netEl = document.getElementById('calcNetBalance');
-                gsap.fromTo(netEl, {
+                // Same animation on the fee % label in the NET Profit card
+                const feeEl = document.getElementById('calcFeeLabel');
+                gsap.fromTo(feeEl, {
                     color: '#ffffff',
-                    scale: 1.15,
-                    textShadow: '0 0 20px rgba(0,232,123,0.6)'
+                    scale: 1.4,
+                    textShadow: '0 0 16px rgba(0,232,123,0.6)'
                 }, {
                     color: '#00E87B',
                     scale: 1,
@@ -4366,18 +4366,6 @@
                     duration: 0.8,
                     ease: 'power2.out'
                 });
-
-                // Glow pulse on NET card container
-                const netCard = netEl.closest('[style*="border-radius"]');
-                if (netCard) {
-                    gsap.fromTo(netCard, {
-                        boxShadow: '0 0 40px rgba(0,232,123,0.25), 0 0 80px rgba(0,71,255,0.15)'
-                    }, {
-                        boxShadow: '0 0 30px var(--accent-glow)',
-                        duration: 1.2,
-                        ease: 'power2.out'
-                    });
-                }
             }
 
             // Update split display
