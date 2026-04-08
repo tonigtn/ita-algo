@@ -3727,19 +3727,38 @@
                                 <span>Min: $5k</span>
                                 <span>Max: $2M+</span>
                             </div>
+                            <!-- Capital Presets -->
+                            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;">
+                                <button onclick="setCapitalPreset(5000)" style="padding:6px 12px;background:var(--bg-deep);border:1px solid var(--border);border-radius:6px;color:var(--silver);font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:all 0.2s;" class="cp-btn">$5K</button>
+                                <button onclick="setCapitalPreset(10000)" style="padding:6px 12px;background:var(--bg-deep);border:1px solid var(--border);border-radius:6px;color:var(--silver);font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:all 0.2s;" class="cp-btn">$10K</button>
+                                <button onclick="setCapitalPreset(25000)" style="padding:6px 12px;background:var(--bg-deep);border:1px solid var(--border);border-radius:6px;color:var(--silver);font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:all 0.2s;" class="cp-btn">$25K</button>
+                                <button onclick="setCapitalPreset(50000)" style="padding:6px 12px;background:var(--bg-deep);border:1px solid var(--border);border-radius:6px;color:var(--silver);font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:all 0.2s;" class="cp-btn">$50K</button>
+                                <button onclick="setCapitalPreset(100000)" style="padding:6px 12px;background:var(--bg-deep);border:1px solid var(--border);border-radius:6px;color:var(--silver);font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:all 0.2s;" class="cp-btn">$100K</button>
+                                <button onclick="setCapitalPreset(500000)" style="padding:6px 12px;background:var(--bg-deep);border:1px solid var(--border);border-radius:6px;color:var(--silver);font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:all 0.2s;" class="cp-btn">$500K</button>
+                                <button onclick="setCapitalPreset(1000000)" style="padding:6px 12px;background:var(--bg-deep);border:1px solid var(--border);border-radius:6px;color:var(--silver);font-size:11px;font-weight:600;cursor:pointer;font-family:var(--font-body);transition:all 0.2s;" class="cp-btn">$1M+</button>
+                            </div>
                         </div>
 
-                        <!-- Profit Split Table -->
+                        <!-- Profit Split with Visual Bar -->
                         <div style="background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--card-radius);padding:20px;">
-                            <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
-                                <span style="font-size:14px;color:var(--platinum);">Your Profit Share</span>
-                                <span style="font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--positive);display:inline-block;transform-origin:center;" id="calcSplitYou">50%</span>
+                            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--silver);margin-bottom:12px;">Profit Split (auto-calculated)</div>
+                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+                                <div><span style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--positive);display:inline-block;transform-origin:center;" id="calcSplitYou">50%</span><span style="font-size:12px;color:var(--silver);margin-left:4px;">Your Share</span></div>
+                                <div><span style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--silver);" id="calcSplitAlgo">50%</span><span style="font-size:12px;color:var(--silver);margin-left:4px;">ITA Share</span></div>
                             </div>
-                            <div style="display:flex;justify-content:space-between;padding:8px 0;">
-                                <span style="font-size:14px;color:var(--platinum);">Firm Performance Fee</span>
-                                <span style="font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--silver);" id="calcSplitAlgo">50%</span>
+                            <!-- Visual bar -->
+                            <div style="display:flex;height:8px;border-radius:4px;overflow:hidden;margin-bottom:12px;">
+                                <div id="splitBarYou" style="width:50%;background:var(--positive);transition:width 0.5s ease;border-radius:4px 0 0 4px;"></div>
+                                <div id="splitBarAlgo" style="width:50%;background:var(--silver);opacity:0.3;transition:width 0.5s ease;border-radius:0 4px 4px 0;"></div>
                             </div>
-                            <div style="font-size:11px;color:var(--silver);opacity:0.6;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);" id="calcSplitTier">Splits upgrade at $100k (60/40) and $1M (70/30).</div>
+                            <div style="font-size:11px;color:var(--silver);opacity:0.6;" id="calcSplitTier">Starter Tier &mdash; Up to $100K</div>
+                            <!-- Mini tier reference -->
+                            <div style="display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;">
+                                <span id="stm0" style="font-size:10px;padding:3px 8px;border-radius:4px;border:1px solid var(--accent);color:var(--accent);background:var(--accent-glow);">&lt;$100K: 50/50</span>
+                                <span id="stm1" style="font-size:10px;padding:3px 8px;border-radius:4px;border:1px solid var(--border);color:var(--silver);">$100K: 60/40</span>
+                                <span id="stm2" style="font-size:10px;padding:3px 8px;border-radius:4px;border:1px solid var(--border);color:var(--silver);">$500K: 65/35</span>
+                                <span id="stm3" style="font-size:10px;padding:3px 8px;border-radius:4px;border:1px solid var(--border);color:var(--silver);">&gt;$1M: 70/30</span>
+                            </div>
                         </div>
 
                         <!-- Risk Profile Cards -->
@@ -3802,6 +3821,24 @@
                                 <canvas id="calcChart"></canvas>
                             </div>
                             <div style="font-size:10px;color:var(--silver);opacity:0.5;margin-top:8px;">*Graph includes simulated periodic market dips to reflect realistic trading conditions, not a linear progression.</div>
+                        </div>
+
+                        <!-- Monthly Breakdown Table -->
+                        <div style="background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--card-radius);padding:20px;overflow-x:auto;">
+                            <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--silver);margin-bottom:12px;">Month-by-Month Breakdown &mdash; Net Results After Profit Split</div>
+                            <table style="width:100%;border-collapse:collapse;font-size:12px;">
+                                <thead>
+                                    <tr style="border-bottom:1px solid var(--border);">
+                                        <th style="text-align:left;padding:8px 6px;color:var(--silver);font-weight:600;">Period</th>
+                                        <th style="text-align:right;padding:8px 6px;color:var(--silver);font-weight:600;">Gross</th>
+                                        <th style="text-align:right;padding:8px 6px;color:var(--silver);font-weight:600;">ITA Fee</th>
+                                        <th style="text-align:right;padding:8px 6px;color:var(--silver);font-weight:600;">Your NET</th>
+                                        <th style="text-align:right;padding:8px 6px;color:var(--silver);font-weight:600;">Compound</th>
+                                        <th style="text-align:right;padding:8px 6px;color:var(--silver);font-weight:600;">Income</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="monthlyTableBody"></tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -4596,6 +4633,18 @@
             calcUpdate();
         }
 
+        // Capital presets
+        function setCapitalPreset(val) {
+            calcCapital.value = val;
+            calcCapitalDisplay.textContent = parseInt(val).toLocaleString('en-US');
+            document.querySelectorAll('.cp-btn').forEach(b => {
+                const isActive = parseInt(b.textContent.replace(/[$K+M,]/g, '')) * (b.textContent.includes('M') ? 1000000 : b.textContent.includes('K') ? 1000 : 1) === val;
+                b.style.borderColor = isActive ? 'var(--accent)' : 'var(--border)';
+                b.style.color = isActive ? 'var(--accent)' : 'var(--silver)';
+            });
+            calcUpdate();
+        }
+
         // Capital slider
         calcCapital.addEventListener('input', () => {
             calcCapitalDisplay.textContent = parseInt(calcCapital.value).toLocaleString('en-US');
@@ -4665,6 +4714,29 @@
             splitAlgoEl.textContent = split.algo + '%';
             splitTierEl.textContent = split.tier;
             document.getElementById('calcFeeLabel').textContent = split.algo + '%';
+
+            // Update visual bar
+            const barYou = document.getElementById('splitBarYou');
+            const barAlgo = document.getElementById('splitBarAlgo');
+            if (barYou) barYou.style.width = split.you + '%';
+            if (barAlgo) barAlgo.style.width = split.algo + '%';
+
+            // Highlight active mini tier
+            const tierIndex = capital >= 1000000 ? 3 : capital >= 500000 ? 2 : capital >= 100000 ? 1 : 0;
+            [0,1,2,3].forEach(i => {
+                const el = document.getElementById('stm' + i);
+                if (el) {
+                    if (i === tierIndex) {
+                        el.style.borderColor = 'var(--accent)';
+                        el.style.color = 'var(--accent)';
+                        el.style.background = 'var(--accent-glow)';
+                    } else {
+                        el.style.borderColor = 'var(--border)';
+                        el.style.color = 'var(--silver)';
+                        el.style.background = 'transparent';
+                    }
+                }
+            });
 
             // Build BOTH lines with realistic dips (deterministic noise)
             const seed = Math.round(capital * 3 + parseFloat(currentRisk) * 17);
@@ -4795,6 +4867,37 @@
                     }
                 });
             }
+
+            // Update monthly breakdown table
+            updateMonthlyTable(capital, profile, split);
+        }
+
+        function updateMonthlyTable(capital, profile, split) {
+            const tbody = document.getElementById('monthlyTableBody');
+            if (!tbody) return;
+            const biWeeklyReturn = profile.weeklyReturn * 2;
+            let cBal = capital;
+            const rows = [];
+            for (let m = 1; m <= 3; m++) {
+                const seed = Math.round(capital * 3 + parseFloat(currentRisk) * 17);
+                const n1 = Math.sin(seed + (m*2-1) * 43) * 0.005;
+                const n2 = Math.sin(seed + (m*2) * 43) * 0.005;
+                const grossRate = (biWeeklyReturn * 2) + n1 + n2;
+                const grossAmt = cBal * grossRate;
+                const itaFee = grossAmt * (split.algo / 100);
+                const netProfit = grossAmt * (split.you / 100);
+                cBal += netProfit;
+                const income = m < 3 ? Math.round(netProfit) : Math.round(netProfit);
+                rows.push('<tr style="border-bottom:1px solid var(--border);">' +
+                    '<td style="padding:8px 6px;color:var(--platinum);">Month ' + m + '</td>' +
+                    '<td style="padding:8px 6px;text-align:right;color:var(--silver);">+' + (grossRate * 100).toFixed(1) + '%</td>' +
+                    '<td style="padding:8px 6px;text-align:right;color:var(--danger);opacity:0.7;">-$' + Math.round(itaFee).toLocaleString() + '</td>' +
+                    '<td style="padding:8px 6px;text-align:right;color:var(--positive);font-weight:600;">+$' + Math.round(netProfit).toLocaleString() + '</td>' +
+                    '<td style="padding:8px 6px;text-align:right;color:var(--white);font-weight:600;">$' + Math.round(cBal).toLocaleString() + '</td>' +
+                    '<td style="padding:8px 6px;text-align:right;color:var(--accent);">$' + income.toLocaleString() + '</td>' +
+                    '</tr>');
+            }
+            tbody.innerHTML = rows.join('');
         }
 
         setRisk('0.5');
